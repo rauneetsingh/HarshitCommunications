@@ -1,7 +1,7 @@
 ﻿using HarshitCommunications.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace HarshitCommunications.Data
+namespace HarshitCommunications.DataAccess.Data
 {
     public class ApplicationDbContext : DbContext
     {

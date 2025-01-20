@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace HarshitCommunications.Migrations
+namespace HarshitCommunications.DataAccess.Migrations
 {
     /// <inheritdoc />
     public partial class AddCategoryTableToDb : Migration
