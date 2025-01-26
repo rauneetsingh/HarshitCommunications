@@ -21,16 +21,16 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var category in Model.OrderBy(u => u.DisplayOrder))
+            @foreach (var Category in Model.OrderBy(u => u.DisplayOrder))
             {
                 <tr>
-                    <td>@category.Name</td>
-                    <td>@category.DisplayOrder</td>
+                    <td>@Category.Name</td>
+                    <td>@Category.DisplayOrder</td>
                     <td>
-                        <a asp-controller="Category" asp-action="Edit" asp-route-id="@category.Id" class="btn btn-primary w-25">
+                        <a asp-controller="Category" asp-action="Edit" asp-route-id="@Category.Id" class="btn btn-primary w-25">
                             <i class="bi bi-pencil"></i> Edit
                         </a>
-                        <a asp-controller="Category" asp-action="Delete" asp-route-id="@category.Id" class="btn btn-danger w-25">
+                        <a asp-controller="Category" asp-action="Delete" asp-route-id="@Category.Id" class="btn btn-danger w-25">
                             <i class="bi bi-trash"></i> Delete
                         </a>
                     </td>

@@ -2,8 +2,9 @@ using System.Diagnostics;
 using HarshitCommunications.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace HarshitCommunications.Controllers
+namespace HarshitCommunications.Areas.Customer.Controllers
 {
+    [Area("Customer")]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
