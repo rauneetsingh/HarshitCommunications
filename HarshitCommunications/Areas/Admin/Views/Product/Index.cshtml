@@ -6,56 +6,27 @@
             <h2>Products</h2>
         </div>
         <div class="col-6 text-end">
-            <a asp-controller="Product" asp-action="Create" class="btn btn-primary">
+            <a asp-controller="Product" asp-action="Upsert" class="btn btn-primary">
                 <i class="bi bi-plus-circle"></i> Create New Product
             </a>
         </div>
     </div>
 
-    <table class="table table-bordered table-striped">
+    <table id="tblData" class="table table-bordered table-striped">
         <thead>
             <tr>
                 <th>Product Name</th>
                 <th>Description</th>
-                <th>Price</th>
+                <th>Specifications</th>
                 <th>Category</th>
+                <th>Price</th>
+                <th>Image</th>
                 <th>Action</th>
             </tr>
         </thead>
-        <tbody>
-            @foreach (var Product in Model)
-            {
-                <tr>
-                    <td>@Product.Name</td>
-                    <td>
-                        @if (!string.IsNullOrEmpty(Product.Description))
-                        {
-                            var specs = System.Text.Json.JsonSerializer.Deserialize<Dictionary<string, string>>(Product.Description);
-                            <ul>
-                                @foreach (var spec in specs)
-                                {
-                                    <li><strong>@spec.Key:</strong> @spec.Value</li>
-                                }
-                            </ul>
-                        }
-                        else
-                        {
-                            <p>No specifications available.</p>
-                        }
-                    </td>
-                    @* <td>@Product.Description</td> *@
-                    <td>@Product.Price</td>
-                    <td></td>
-                    <td>
-                        <a asp-controller="Product" asp-action="Edit" asp-route-id="@Product.Id" class="btn btn-primary">
-                            <i class="bi bi-pencil"></i> Edit
-                        </a>
-                        <a asp-controller="Product" asp-action="Delete" asp-route-id="@Product.Id" class="btn btn-danger">
-                            <i class="bi bi-trash"></i> Delete
-                        </a>
-                    </td>
-                </tr>
-            }
-        </tbody>
     </table>
 </div>
+
+@section Scripts {
+    <script src="~/js/product.js"></script>
+}

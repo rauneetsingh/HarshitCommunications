@@ -1,22 +1,146 @@
 html {
-  font-size: 14px;
+    font-size: 14px;
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 body {
-  margin-bottom: 60px;
+    /*background-color: #ebf2fc;*/
 }
+
+.custom-shape-divider-bottom-1739626956 {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+    transform: rotate(180deg);
+}
+
+    .custom-shape-divider-bottom-1739626956 svg {
+        position: relative;
+        display: block;
+        width: calc(116% + 1.3px);
+        height: 141px;
+    }
+
+    .custom-shape-divider-bottom-1739626956 .shape-fill {
+        fill: #4A90E2;
+    }
+
+.product-header {
+    background-image: url('../Images/Static_Images/bg2.jpg');
+    background-size: cover;
+}
+
+.hero-slide {
+}
+
+.carousel-caption {
+    position: relative;
+    top: auto;
+    transform: none;
+    text-align: left;
+}
+
+    .carousel img:focus,
+    .carousel-caption:focus {
+        outline: none;
+    }
+
+
+    .carousel-caption h1 {
+        color: #000;
+        font-size: 3rem;
+    }
+
+    .carousel-caption p {
+        color: #000;
+        font-size: 1.25rem;
+    }
+
+.carousel-item img {
+    object-fit: cover;
+    height: 100%;
+}
+
+.product-card {
+    border-radius: 12px;
+    transition: all 0.3s ease-in-out;
+}
+
+    .product-card:hover {
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+        transform: translateY(-5px);
+    }
+
+.card-img-top {
+    object-fit: cover;
+}
+
+
+.category-card {
+    background-color: #f9f9f9;
+    border-radius: 12px;
+    transition: all 0.3s ease-in-out;
+}
+
+    .category-card:hover {
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        transform: translateY(-5px);
+    }
+
+h2 span {
+    color: #007bff;
+}
+
+footer {
+    padding-bottom: 20px;
+}
+
+    footer a:hover {
+        text-decoration: underline;
+    }
+
+    footer ul li {
+        margin-bottom: 5px;
+    }
+
+    footer p {
+        font-size: 14px;
+        color: #b3b3b3;
+    }
+
+h1 span {
+    color: #007bff;
+}
+
+p.lead {
+    font-size: 1.2rem;
+}
+
+.border {
+    background-color: #f8f9fa;
+}
+
+.shadow-sm {
+    transition: all 0.3s ease;
+}
+
+    .shadow-sm:hover {
+        box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.15);
+    }

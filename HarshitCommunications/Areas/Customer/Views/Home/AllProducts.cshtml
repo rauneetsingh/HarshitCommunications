@@ -1,0 +1,40 @@
+﻿@model IEnumerable<Product>
+
+<header class="bg-dark py-5 product-header">
+    <div class="container px-4 px-lg-5 my-5">
+        <div class="text-center text-start">
+            <h1 class="display-4 fw-bolder text-start">Shop in Style</h1>
+            <p class="lead fw-normal text-black-50 mb-0 text-start">Harshit Communications</p>
+        </div>
+    </div>
+</header>
+
+<section class="py-5">
+    <div class="container px-4 px-lg-5 mt-5">
+        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+            @foreach (var product in Model)
+            {
+                <div class="col mb-5">
+                    <div class="card h-100">
+                        <img class="card-img-top" src="@product.ImageUrl" alt="..." />
+                        <div class="card-body p-4">
+                            <div class="text-center">
+                                <h5 class="fw-bolder">@product.Name</h5>
+                                <p>Here comes COOLPODS 27 as a style icon for ears with an attractive and protective case. A package with tunes.</p>
+                                @product.Price.ToString("C", new System.Globalization.CultureInfo("hi-IN"))
+                            </div>
+                        </div>
+                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                            <div class="text-center mb-3">
+                                <a class="btn btn-warning form-control w-75" asp-area="Customer" asp-controller="Home" asp-action="Details"><i class="bi bi-cart"></i> Add to Cart</a>
+                            </div>
+                            <div class="text-center">
+                                <a class="btn btn-outline-primary form-control w-75" asp-area="Customer" asp-controller="Home" asp-action="Details" asp-route-productID="@product.Id">More Details</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
