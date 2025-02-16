@@ -18,22 +18,17 @@
 
   <ItemGroup>
     <ProjectReference Include="..\HarshitCommunications.DataAccess\HarshitCommunications.DataAccess.csproj" />
+    <ProjectReference Include="..\HarshitCommunications.Models\HarshitCommunications.Models.csproj" />
+    <ProjectReference Include="..\HarshitCommunications.Utility\HarshitCommunications.Utility.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Controllers\" />
+    <Folder Include="wwwroot\Images\Products\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Update="Areas\Admin\Views\Product\Create.cshtml">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Update="Areas\Admin\Views\Product\Delete.cshtml">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Update="Areas\Admin\Views\Product\Edit.cshtml">
+    <Content Update="Areas\Admin\Views\Product\Upsert.cshtml">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
