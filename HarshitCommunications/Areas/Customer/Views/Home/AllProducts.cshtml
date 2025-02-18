@@ -3,38 +3,81 @@
 <header class="bg-dark py-5 product-header">
     <div class="container px-4 px-lg-5 my-5">
         <div class="text-center text-start">
-            <h1 class="display-4 fw-bolder text-start">Shop in Style</h1>
-            <p class="lead fw-normal text-black-50 mb-0 text-start">Harshit Communications</p>
+            <h1 class="display-4 fw-bolder text-start text-dark">Shop in Style</h1>
+            <p class="lead fw-normal text-dark-50 mb-0 text-start">Harshit Communications</p>
         </div>
     </div>
 </header>
 
 <section class="py-5">
-    <div class="container px-4 px-lg-5 mt-5">
-        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-            @foreach (var product in Model)
-            {
-                <div class="col mb-5">
-                    <div class="card h-100">
-                        <img class="card-img-top" src="@product.ImageUrl" alt="..." />
-                        <div class="card-body p-4">
-                            <div class="text-center">
-                                <h5 class="fw-bolder">@product.Name</h5>
-                                <p>Here comes COOLPODS 27 as a style icon for ears with an attractive and protective case. A package with tunes.</p>
-                                @product.Price.ToString("C", new System.Globalization.CultureInfo("hi-IN"))
+    <div class="container">
+        <div class="row">
+            <!-- Filter Sidebar -->
+            <div class="col-lg-3 col-md-4 col-sm-12 sticky-filter">
+                <h4 class="mb-4">Filter by Categories</h4>
+                <ul class="list-group">
+                    @foreach (var category in ViewBag.Categories as List<Category>)
+                    {
+                        <li class="list-group-item">
+                            <input type="checkbox" class="category-filter" value="@category.Id" /> @category.Name
+                        </li>
+                    }
+                </ul>
+            </div>
+
+            <!-- Product Grid -->
+            <div class="col-lg-9 col-md-8 col-sm-12">
+                <div id="product-grid" class="row g-4">
+                    @foreach (var product in Model)
+                    {
+                        <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                            <div class="card h-100 shadow-sm">
+                                <img class="card-img-top" src="@product.ImageUrl" alt="@product.Name" />
+                                <div class="card-body text-center">
+                                    <h5 class="fw-bolder">@product.Name</h5>
+                                    <p class="text-muted">@product.ShortDesc</p>
+                                    <strong>@product.Price.ToString("C", new System.Globalization.CultureInfo("hi-IN"))</strong>
+                                </div>
+                                <div class="card-footer bg-transparent text-center">
+                                    <a class="btn btn-warning w-75" asp-area="Customer" asp-controller="Home" asp-action="Details"><i class="bi bi-cart"></i> Add to Cart</a>
+                                    <a class="btn btn-outline-primary w-75 mt-2" asp-area="Customer" asp-controller="Home" asp-action="Details" asp-route-productID="@product.Id">More Details</a>
+                                </div>
                             </div>
                         </div>
-                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                            <div class="text-center mb-3">
-                                <a class="btn btn-warning form-control w-75" asp-area="Customer" asp-controller="Home" asp-action="Details"><i class="bi bi-cart"></i> Add to Cart</a>
-                            </div>
-                            <div class="text-center">
-                                <a class="btn btn-outline-primary form-control w-75" asp-area="Customer" asp-controller="Home" asp-action="Details" asp-route-productID="@product.Id">More Details</a>
-                            </div>
-                        </div>
-                    </div>
+                    }
                 </div>
-            }
+                <div class="text-center">
+                    <button id="load-more-btn" class="btn btn-primary mt-4">Load More</button>
+                </div>
+            </div>
         </div>
     </div>
 </section>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $(".category-checkbox").on("change", function () {
+                var selectedCategories = $(".category-checkbox:checked").map(function () {
+                    return $(this).val();
+                }).get();
+
+                console.log("Selected Categories:", selectedCategories);
+
+                $.ajax({
+                    url: "/Customer/Home/FilterProducts",
+                    type: "GET",
+                    data: { categoryIds: selectedCategories },
+                    success: function (response) {
+                        console.log("Server Response:", response);
+                        $("#productsContainer").html(response);
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("AJAX Error:", status, error);
+                    }
+                });
+            });
+        });
+
+    </script>
+}

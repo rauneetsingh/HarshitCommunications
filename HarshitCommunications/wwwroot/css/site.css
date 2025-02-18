@@ -15,32 +15,26 @@ html {
 html {
     position: relative;
     min-height: 100%;
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
 }
 
 body {
-    /*background-color: #ebf2fc;*/
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+    background-color: #F1F1F2;
+    margin-top: 50px;
 }
 
-.custom-shape-divider-bottom-1739626956 {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    overflow: hidden;
-    line-height: 0;
-    transform: rotate(180deg);
+nav {
+    background-color: #66A5AD;
 }
 
-    .custom-shape-divider-bottom-1739626956 svg {
-        position: relative;
-        display: block;
-        width: calc(116% + 1.3px);
-        height: 141px;
-    }
-
-    .custom-shape-divider-bottom-1739626956 .shape-fill {
-        fill: #4A90E2;
-    }
+footer {
+    background-color: #66A5AD;
+}
 
 .product-header {
     background-image: url('../Images/Static_Images/bg2.jpg');
@@ -48,6 +42,10 @@ body {
 }
 
 .hero-slide {
+}
+
+#heroCarousel{
+    margin-top: 80px;
 }
 
 .carousel-caption {
@@ -76,6 +74,33 @@ body {
 .carousel-item img {
     object-fit: cover;
     height: 100%;
+}
+
+.carousel-thumbnail {
+    width: 90px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 8px;
+    opacity: 0.7;
+    transition: opacity 0.3s ease-in-out, transform 0.2s ease-in-out;
+    border: 2px solid transparent;
+}
+
+    .carousel-thumbnail:hover, .carousel-indicators .active img {
+        opacity: 1;
+        transform: scale(1.1); /* Slight zoom effect */
+        border: 2px solid #007bff;
+    }
+
+/* Align thumbnails properly */
+.container .row .col-auto {
+    padding: 5px;
+}
+
+button {
+    background: none;
+    border: none;
+    padding: 0;
 }
 
 .product-card {
@@ -144,3 +169,38 @@ p.lead {
     .shadow-sm:hover {
         box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.15);
     }
+
+.bg-image-container {
+    background-image: url('../Images/Static_Images/bg3.jpg');
+    background-size: cover;
+    background-position: center center;
+    height: 100vh;
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+}
+
+/*All Products Section*/
+.product-header{
+    
+}
+
+.sticky-filter {
+    position: sticky;
+    top: 20px;
+    z-index: 10;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 768px) {
+    .sticky-filter {
+        position: relative;
+        margin-bottom: 20px;
+    }
+}
