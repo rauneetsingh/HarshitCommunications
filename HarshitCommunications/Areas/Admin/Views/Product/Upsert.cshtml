@@ -1,91 +1,93 @@
 ﻿@model ProductVM
 
-<div class="card shadow border-0 my-4">
-    <div class="card-header bg-primary bg-gradient ml-0 py-3">
-        <div class="row">
-            <div class="col-12 text-center">
-                <h2 class="text-white py-2">@(Model.Product.Id != 0 ? "Update" : "Create")</h2>
+<div class="container">
+    <div class="card shadow border-0 my-4">
+        <div class="card-header bg-primary bg-gradient ml-0 py-3">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <h2 class="text-white py-2">@(Model.Product.Id != 0 ? "Update" : "Create")</h2>
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="card-body p-4">
-        <form method="post" enctype="multipart/form-data">
-            <input asp-for="Product.Id" hidden />
-            <input asp-for="Product.ImageUrl" hidden />
-            <div class="row">
-                <div class="col-10">
-                    <div class="border p-3">
-                        <div class="mb-3">
-                            <label asp-for="Product.Name">Product Name</label>
-                            <input asp-for="Product.Name" class="form-control" />
-                            <span asp-validation-for="Product.Name" class="text-danger"></span>
-                        </div>
-
-                        <div class="mb-3">
-                            <label asp-for="Product.ShortDesc">Description</label>
-                            <input asp-for="Product.ShortDesc" class="form-control" />
-                            <span asp-validation-for="Product.ShortDesc" class="text-danger"></span>
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="form-label">Specifications (Bullet Points)</label>
-
-                            <!-- Quill Editor Container -->
-                            <div id="editor" style="height: 200px;"></div>
-
-                            <!-- Hidden Textarea to Store JSON -->
-                            <textarea asp-for="Product.Description" id="Description" class="form-control" hidden></textarea>
-
-                            <small class="text-muted">
-                                Enter specifications in Bullet Points.
-                            </small>
-                            <div class="text-danger" id="json-error" style="display:none;">Invalid JSON format.</div>
-                        </div>
-
-                        <div class="mb-3">
-                            <label asp-for="Product.Price"></label>
-                            <input asp-for="Product.Price" class="form-control" />
-                            <span asp-validation-for="Product.Price" class="text-danger"></span>
-                        </div>
-                        <div class="mb-3">
-                            <label asp-for="Product.CategoryId">Select the Category of the Product</label>
-                            <select asp-for="Product.CategoryId" asp-items="@Model.CategoryList" class="form-select">
-                                <option value="">-- Select Category --</option>
-                            </select>
-                            <span asp-validation-for="Product.CategoryId" class="text-danger"></span>
-                        </div>
-                        <div class="mb-3">
-                            <label asp-for="Product.ImageUrl">Upload an Image of the Product</label>
-                            <input type="file" name="file" class="form-control" />
-                            <span asp-validation-for="Product.ImageUrl" class="text-danger"></span>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-6 col-md-3">
-                                @if (Model.Product.Id != 0)
-                                {
-                                    <button type="submit" class="btn btn-primary form-control">Update</button>
-                                }
-
-                                else
-                                {
-                                    <button type="submit" class="btn btn-primary form-control">Create</button>
-                                }
+        <div class="card-body p-4">
+            <form method="post" enctype="multipart/form-data">
+                <input asp-for="Product.Id" hidden />
+                <input asp-for="Product.ImageUrl" hidden />
+                <div class="row">
+                    <div class="col-10">
+                        <div class="border p-3">
+                            <div class="mb-3">
+                                <label asp-for="Product.Name">Product Name</label>
+                                <input asp-for="Product.Name" class="form-control" />
+                                <span asp-validation-for="Product.Name" class="text-danger"></span>
                             </div>
-                            <div class="col-6 col-md-3">
-                                <a asp-controller="Product" asp-action="Index" class="btn btn-outline-dark form-control">
-                                    Back to List
-                                </a>
+
+                            <div class="mb-3">
+                                <label asp-for="Product.ShortDesc">Description</label>
+                                <input asp-for="Product.ShortDesc" class="form-control" />
+                                <span asp-validation-for="Product.ShortDesc" class="text-danger"></span>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">Specifications</label>
+
+                                <!-- Quill Editor Container -->
+                                <div id="editor" style="height: 200px;"></div>
+
+                                <!-- Hidden Textarea to Store JSON -->
+                                <textarea asp-for="Product.Description" id="Description" class="form-control" hidden></textarea>
+
+                                <small class="text-muted">
+                                    Enter specifications in Bullet Points.
+                                </small>
+                                <div class="text-danger" id="json-error" style="display:none;">Invalid JSON format.</div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label asp-for="Product.Price"></label>
+                                <input asp-for="Product.Price" class="form-control" />
+                                <span asp-validation-for="Product.Price" class="text-danger"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label asp-for="Product.CategoryId">Select Category of the Product</label>
+                                <select asp-for="Product.CategoryId" asp-items="@Model.CategoryList" class="form-select">
+                                    <option value="">-- Select Category --</option>
+                                </select>
+                                <span asp-validation-for="Product.CategoryId" class="text-danger"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label asp-for="Product.ImageUrl">Upload an Image of the Product</label>
+                                <input type="file" name="file" class="form-control" />
+                                <span asp-validation-for="Product.ImageUrl" class="text-danger"></span>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-6 col-md-3">
+                                    @if (Model.Product.Id != 0)
+                                    {
+                                        <button type="submit" class="btn btn-primary form-control">Update</button>
+                                    }
+
+                                    else
+                                    {
+                                        <button type="submit" class="btn btn-primary form-control">Create</button>
+                                    }
+                                </div>
+                                <div class="col-6 col-md-3">
+                                    <a asp-controller="Product" asp-action="Index" class="btn btn-outline-dark form-control">
+                                        Back to List
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
+                    <div class="col-2">
+                        <img src="@Model.Product.ImageUrl" width="100%" style="border-radius: 5px; border: 1px solid #bbb9b9" />
+                    </div>
                 </div>
-                <div class="col-2">
-                    <img src="@Model.Product.ImageUrl" width="100%" style="border-radius: 5px; border: 1px solid #bbb9b9" />
-                </div>
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
 </div>
 

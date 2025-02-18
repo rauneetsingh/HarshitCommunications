@@ -12,12 +12,13 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" />
     <!-- DataTables Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.8/css/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" href="~/css/style.css" />
 
 
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-lg bg-dark">
+        <nav class="navbar navbar-expand-lg fixed-top">
             <div class="container-fluid">
                 <!-- Brand Logo/Name -->
                 <a class="navbar-brand text-white" asp-area="Customer" asp-controller="Home" asp-action="Index">
@@ -31,12 +32,9 @@
 
                 <!-- Navbar Links -->
                 <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav mx-auto">
+                    <ul class="navbar-nav me-auto">
                         <li class="nav-item">
                             <a class="nav-link text-white" asp-area="Customer" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white" asp-area="Customer" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle text-white" href="#" id="productsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -53,6 +51,8 @@
                             </ul>
                         </li>
                     </ul>
+
+                    <partial name="_LoginPartial" />
 
                     <!-- Search Button Icon -->
                     <button class="btn btn-outline-secondary me-2" data-bs-toggle="modal" data-bs-target="#searchModal">
@@ -126,56 +126,37 @@
         @RenderBody()
     </main>
 
-    <footer class="bg-dark text-white pt-4">
+    <footer class="text-white pt-4">
         <div class="container">
             <div class="row">
-                <!-- Download Section -->
-                <div class="col-md-3">
-                    <h5 class="fw-bold">Download Our App</h5>
-                    <p>Download App for Android and IOS Mobile Phone.</p>
-                    <div class="d-flex gap-2 mt-2">
-                        <a href="#" target="_blank">
-                            <img src="~/images/google-play.png" class="img-fluid" alt="Google Play" style="width: 120px;">
-                        </a>
-                        <a href="#" target="_blank">
-                            <img src="~/images/app-store.png" class="img-fluid" alt="App Store" style="width: 120px;">
-                        </a>
-                    </div>
-                </div>
-
-                <!-- About Section -->
-                <div class="col-md-3">
-                    <h5 class="fw-bold mt-3 mt-md-0">About Us</h5>
-                    <p>Gear Up Your Gadgets - Premium Accessories for Every Device!</p>
-                </div>
-
                 <!-- Useful Links Section -->
-                <div class="col-md-3">
-                    <h5 class="fw-bold mt-3 mt-md-0">Useful Links</h5>
+                <div class="col-md-6">
+                    <h5 class="fw-bold">Useful Links</h5>
                     <ul class="list-unstyled">
-                        <li><a href="#" class="text-white text-decoration-none">Coupons</a></li>
-                        <li><a href="#" class="text-white text-decoration-none">Blog Post</a></li>
-                        <li><a href="#" class="text-white text-decoration-none">Return Policy</a></li>
-                        <li><a href="#" class="text-white text-decoration-none">Join Affiliate</a></li>
+                        <li><a href="#" class="text-white text-decoration-none">Browse our Products</a></li>
+                        <li><a href="#" class="text-white text-decoration-none">About Us</a></li>
                     </ul>
                 </div>
 
-                <!-- Follow Us Section -->
-                <div class="col-md-3">
-                    <h5 class="fw-bold mt-3 mt-md-0">Follow Us</h5>
+                <!-- Category Section -->
+                <div class="col-md-6">
+                    <h5 class="fw-bold">Categories</h5>
                     <ul class="list-unstyled">
-                        <li><a href="#" class="text-white text-decoration-none">Facebook</a></li>
-                        <li><a href="#" class="text-white text-decoration-none">Twitter</a></li>
-                        <li><a href="#" class="text-white text-decoration-none">Instagram</a></li>
-                        <li><a href="#" class="text-white text-decoration-none">YouTube</a></li>
+                        <li><a href="#" class="text-white text-decoration-none">Earbuds</a></li>
+                        <li><a href="#" class="text-white text-decoration-none">Headphones</a></li>
+                        <li><a href="#" class="text-white text-decoration-none">Smart Watches</a></li>
+                        <li><a href="#" class="text-white text-decoration-none">Speakers</a></li>
+                        <li><a href="#" class="text-white text-decoration-none">Power Banks</a></li>
+                        <li><a href="#" class="text-white text-decoration-none">Chargers</a></li>
                     </ul>
                 </div>
             </div>
 
             <hr class="border-secondary mt-4">
-            <p class="text-center mb-0">&copy; 2025 - Harshit Communication</p>
+            <p class="text-center text-white mb-0">&copy; 2025 - Harshit Communication</p>
         </div>
     </footer>
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
