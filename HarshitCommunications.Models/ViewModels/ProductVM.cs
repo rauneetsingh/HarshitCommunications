@@ -10,6 +10,7 @@ namespace HarshitCommunications.Models.ViewModels
 {
     public class ProductVM
     {
+        [ValidateNever]
         public Product Product { get; set; }
 
         [ValidateNever]

@@ -94,7 +94,13 @@
 @section Scripts {
     <script>
         const quill = new Quill('#editor', {
-          theme: 'snow'
+          theme: 'snow',
+          formats: ['bold', 'italic', 'list', 'bullet', 'ordered'],
+        });
+
+        quill.on("text-change", function () {
+            var quillHtml = quill.root.innerHTML; // Get full HTML including <ol> and <li> tags
+            $("#Description").val(quillHtml); // Store in hidden field for form submission
         });
     </script>
 
@@ -104,32 +110,17 @@
 
             // Load existing data into Quill if available
             if (descriptionInput.value.trim()) {
-                quill.root.innerHTML = descriptionInput.value;
+                quill.root.innerHTML = descriptionInput.value; // Load the HTML content into the editor
             }
-
-            // // Validate JSON before submitting
-            // document.querySelector("form").addEventListener("submit", function (event) {
-            //     var jsonText = quill.root.innerText.trim();
-            //     descriptionInput.value = jsonText; // Save Quill content to textarea
-
-            //     try {
-            //         if (jsonText) {
-            //             JSON.parse(jsonText); // Validate JSON format
-            //         }
-            //         jsonError.style.display = "none";
-            //     } catch (e) {
-            //         event.preventDefault(); // Stop form submission
-            //         jsonError.style.display = "block"; // Show error message
-            //     }
-            // });
 
             // Sync Quill content to textarea before form submission
             document.querySelector("form").addEventListener("submit", function () {
-                descriptionInput.value = quill.root.innerHTML; // Save Quill content
+                descriptionInput.value = quill.root.innerHTML; // Save Quill content with <ol> and <li> tags
             });
         });
     </script>
 }
+
 
 @{
     <partial name="_ValidationScriptsPartial" />
