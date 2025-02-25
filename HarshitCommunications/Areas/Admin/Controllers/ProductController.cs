@@ -1,6 +1,8 @@
 ﻿using HarshitCommunications.DataAccess.Repository.IRepository;
 using HarshitCommunications.Models;
 using HarshitCommunications.Models.ViewModels;
+using HarshitCommunications.Utility;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
@@ -9,6 +11,7 @@ using System.Collections.Generic;
 namespace HarshitCommunications.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = SD.Role_Admin)]
     public class ProductController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -25,33 +28,6 @@ namespace HarshitCommunications.Areas.Admin.Controllers
 
             return View(objProductList);
         }
-
-        //private string CleanDescription(string description)
-        //{
-        //    if (string.IsNullOrWhiteSpace(description))
-        //        return string.Empty;
-
-        //    try
-        //    {
-        //        // Remove escape characters and trim spaces dynamically
-        //        string cleaned = description
-        //            .Replace("\\r\\n", " ") // Replace newline escape sequences
-        //            .Replace("\r\n", " ")   // Replace actual newlines
-        //            .Replace("\\", "")      // Remove unwanted backslashes
-        //            .Trim();                // Trim leading and trailing spaces
-
-        //        // Replace multiple spaces with a single space
-        //        cleaned = System.Text.RegularExpressions.Regex.Replace(cleaned, @"\s+", " ");
-
-        //        return cleaned;
-        //    }
-        //    catch
-        //    {
-        //        return description.Trim(); // Return trimmed version if anything fails
-        //    }
-        //}
-
-
         public IActionResult Upsert(int? id)
         {
             ProductVM productVM = new ProductVM()
@@ -109,6 +85,8 @@ namespace HarshitCommunications.Areas.Admin.Controllers
 
                     obj.Product.ImageUrl = @"\Images\Products\" + fileName;
                 }
+
+                Console.WriteLine("Product Description: " + obj.Product.Description); // Check value
 
                 if (obj.Product.Id == 0)
                 {

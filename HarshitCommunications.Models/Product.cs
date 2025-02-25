@@ -17,6 +17,8 @@ namespace HarshitCommunications.Models
         [Required]
         public string Name { get; set; }
 
+        [DataType(DataType.MultilineText)]
+        [ValidateNever]
         public string? Description { get; set; }
 
         public string? ShortDesc { get; set; }
