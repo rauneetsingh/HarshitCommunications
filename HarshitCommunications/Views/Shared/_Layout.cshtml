@@ -67,8 +67,8 @@
                     <a href="@Url.Action("Wishlist", "Cart")" class="btn btn-outline-secondary me-2">
                         <i class="bi bi-heart"></i>
                     </a>
-                    <a href="@Url.Action("Cart", "Cart")" class="btn btn-outline-secondary">
-                        <i class="bi bi-cart"></i>
+                    <a asp-area="Customer" asp-controller="Cart" asp-action="Index" class="btn btn-outline-secondary">
+                        <i class="bi bi-cart"></i> (0)
                     </a>
                 </div>
             </div>

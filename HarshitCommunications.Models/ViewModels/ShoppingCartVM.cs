@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace HarshitCommunications.Models.ViewModels
 {
-    public class ProductDetailsVM
+    public class ShoppingCartVM
     {
-        public ShoppingCart Cart { get; set; }
-        public IEnumerable<Product> RelatedProducts { get; set; }
+        public IEnumerable<ShoppingCart> ShoppingCartList { get; set; }
+        public double OrderTotal { get; set; }
     }
 }

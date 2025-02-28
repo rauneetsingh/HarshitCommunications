@@ -1,7 +1,9 @@
 using System.Diagnostics;
+using System.Security.Claims;
 using HarshitCommunications.DataAccess.Repository.IRepository;
 using HarshitCommunications.Models;
 using HarshitCommunications.Models.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HarshitCommunications.Areas.Customer.Controllers
@@ -36,7 +38,14 @@ namespace HarshitCommunications.Areas.Customer.Controllers
 
         public IActionResult Details(int productID)
         {
-            Product product = _unitOfWork.Product.Get(u => u.Id == productID, includeProperties: "Category");
+            var product = _unitOfWork.Product.Get(u => u.Id == productID, includeProperties: "Category");
+
+            ShoppingCart cart = new ShoppingCart()
+            {
+                Product = _unitOfWork.Product.Get(u => u.Id == productID, includeProperties: "Category"),
+                Count = 1,
+                ProductId = productID
+            };
 
             var relatedProducts = _unitOfWork.Product.GetAll(includeProperties: "Category")
                 .Where(p => p.CategoryId == product.CategoryId && p.Id != productID)
@@ -45,11 +54,52 @@ namespace HarshitCommunications.Areas.Customer.Controllers
 
             var viewModel = new ProductDetailsVM
             {
-                Product = product,
+                Cart = cart,
                 RelatedProducts = relatedProducts
             };
 
             return View(viewModel);
+        }
+
+        [HttpPost]
+        [Authorize]
+        public IActionResult Details(ShoppingCart shoppingCart)
+        {
+            //if (!ModelState.IsValid)
+            //{
+            //    foreach (var error in ModelState.Values.SelectMany(v => v.Errors))
+            //    {
+            //        Console.WriteLine($"Model Binding Error: {error.ErrorMessage}");
+            //    }
+            //}
+
+            //Console.WriteLine($"Received ProductId: {shoppingCart.ProductId}");
+            //Console.WriteLine($"Received Count: {shoppingCart.Count}");  // Debugging count value
+
+            var claimsIdentity = (ClaimsIdentity)User.Identity;
+            var userId = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier).Value;
+            shoppingCart.ApplicationUserId = userId;
+
+            ShoppingCart cartFromDb = _unitOfWork.ShoppingCart.Get(
+                u => u.ApplicationUserId == userId && u.ProductId == shoppingCart.ProductId);
+
+            if(cartFromDb != null)
+            {
+                //shopping cart exists
+                cartFromDb.Count += shoppingCart.Count;
+                _unitOfWork.ShoppingCart.Update(cartFromDb);
+            }
+
+            else
+            {
+                //add to cart
+                _unitOfWork.ShoppingCart.Add(shoppingCart);
+            }
+
+            TempData["success"] = "Cart Updated successfully!";
+
+            _unitOfWork.Save();
+            return RedirectToAction(nameof(Index));
         }
 
         public IActionResult Privacy()
