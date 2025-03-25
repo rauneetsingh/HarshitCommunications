@@ -32,12 +32,12 @@ function loadDataTable() {
             {
                 "data": "id",
                 "render": function (data) {
-                    return `<div class="w-100 btn-group" role="group">
-                        <a href="/admin/product/upsert?id=${data}" class="btn btn-primary mx-2"> <i class="bi bi-pencil-square"></i> Edit </a>
-                        <a onClick = Delete('/admin/product/delete/${data}') class="btn btn-danger mx-2"> <i class="bi bi-trash-fill"></i> Delete </a>
+                    return `<div class="action-buttons">
+                        <a href="/admin/product/upsert?id=${data}" class="btn btn-primary"> <i class="bi bi-pencil-square"></i> Edit </a>
+                        <a onClick = Delete('/admin/product/delete/${data}') class="btn btn-danger"> <i class="bi bi-trash-fill"></i> Delete </a>
                     </div>`
                 },
-                "width": "20%"
+                "width": "15%"
             },
         ]
     });

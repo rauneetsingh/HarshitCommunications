@@ -1,31 +1,75 @@
 ﻿@model List<Product>
 
-<div class="container">
+<div class="container-fluid">
     <div class="row pt-4 pb-3">
-        <div class="col-6">
-            <h2>Products</h2>
+        <div class="col-md-6">
+            <h2 class="fw-bold">Products</h2>
         </div>
-        <div class="col-6 text-end">
-            <a asp-controller="Product" asp-action="Upsert" class="btn btn-primary">
+        <div class="col-md-6 d-flex justify-content-end">
+            <a asp-controller="Product" asp-action="Upsert" class="btn btn-primary shadow-sm px-4 py-3 rounded">
                 <i class="bi bi-plus-circle"></i> Create New Product
             </a>
         </div>
     </div>
 
-    <table id="tblData" class="table table-bordered table-striped">
-        <thead>
-            <tr>
-                <th>Product Name</th>
-                <th>Description</th>
-                <th>Specifications</th>
-                <th>Category</th>
-                <th>Price</th>
-                <th>Image</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-    </table>
+    <div class="card shadow-lg border-0 p-4">
+        <table id="tblData" class="table table-hover table-bordered text-center align-middle">
+            <thead class="table-dark">
+                <tr>
+                    <th>Product Name</th>
+                    <th>Description</th>
+                    <th>Specifications</th>
+                    <th>Category</th>
+                    <th>Price</th>
+                    <th>Image</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
 </div>
+
+<style>
+    .btn-primary {
+        background-color: #4a69bd;
+        border: none;
+    }
+
+        .btn-primary:hover {
+            background-color: #3b5998;
+        }
+
+    .card {
+        background: #ffffff;
+        border-radius: 10px;
+    }
+
+    .table {
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+        .table th, .table td {
+            vertical-align: middle;
+            text-align: left;
+        }
+
+    .table-hover tbody tr:hover {
+        background-color: rgba(74, 105, 189, 0.1);
+    }
+
+    .action-buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 8px; /* Adjust spacing between buttons */
+    }
+
+        .action-buttons .btn {
+            width: 100%; /* Ensures both buttons have equal width */
+        }
+
+</style>
+
 
 @section Scripts {
     <script src="~/js/product.js"></script>

@@ -49,7 +49,7 @@ namespace HarshitCommunications.Areas.Admin.Controllers
             else
             {
                 //update
-                productVM.Product = _unitOfWork.Product.Get(u => u.Id == id);
+                productVM.Product = _unitOfWork.Product.Get(u => u.Id == id, includeProperties: "Category");
 
                 return View(productVM);
             }
@@ -86,8 +86,6 @@ namespace HarshitCommunications.Areas.Admin.Controllers
                     obj.Product.ImageUrl = @"\Images\Products\" + fileName;
                 }
 
-                Console.WriteLine("Product Description: " + obj.Product.Description); // Check value
-
                 if (obj.Product.Id == 0)
                 {
                     _unitOfWork.Product.Add(obj.Product);
@@ -102,7 +100,15 @@ namespace HarshitCommunications.Areas.Admin.Controllers
                 _unitOfWork.Save();
                 return RedirectToAction("Index");
             }
-            return View();
+
+            // 🚀 Ensure CategoryList is populated when returning the view
+            obj.CategoryList = _unitOfWork.Category.GetAll().Select(u => new SelectListItem
+            {
+                Text = u.Name,
+                Value = u.Id.ToString()
+            });
+
+            return View(obj);
         }
 
         //public IActionResult Edit(int? id)

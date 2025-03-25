@@ -1,0 +1,52 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - HarshitCommunications</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+
+</head>
+<body>
+        @RenderBody()
+
+    <footer class="text-white pt-4">
+        <div class="container">
+            <div class="row">
+                <!-- Useful Links Section -->
+                <div class="col-md-6">
+                    <h5 class="fw-bold">Useful Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a asp-area="Customer" asp-controller="Home" asp-action="Index" class="text-white text-decoration-none">Home</a></li>
+                        <li><a href="#" class="text-white text-decoration-none">Browse our Products</a></li>
+                        <li><a href="#" class="text-white text-decoration-none">About Us</a></li>
+
+                    </ul>
+                </div>
+
+                <!-- Category Section -->
+                <div class="col-md-6">
+                    <h5 class="fw-bold">Categories</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-white text-decoration-none">Earbuds</a></li>
+                        <li><a href="#" class="text-white text-decoration-none">Headphones</a></li>
+                        <li><a href="#" class="text-white text-decoration-none">Smart Watches</a></li>
+                        <li><a href="#" class="text-white text-decoration-none">Speakers</a></li>
+                        <li><a href="#" class="text-white text-decoration-none">Power Banks</a></li>
+                        <li><a href="#" class="text-white text-decoration-none">Chargers</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <hr class="border-secondary mt-4">
+            <p class="text-center text-white mb-0">&copy; 2025 - Harshit Communication</p>
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

@@ -14,7 +14,7 @@ namespace HarshitCommunications.Models
         [Key]
         public int Id { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Product Name is required.")]
         public string Name { get; set; }
 
         [DataType(DataType.MultilineText)]
@@ -23,15 +23,16 @@ namespace HarshitCommunications.Models
 
         public string? ShortDesc { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Price is required.")]
+        [Range(0.1, double.MaxValue, ErrorMessage = "Price must be greater than zero.")]
         public double Price { get; set; }
 
+        [Required(ErrorMessage = "Please select a category.")]
         public int CategoryId { get; set; }
         [ForeignKey("CategoryId")]
-        [ValidateNever]
-        public Category Category { get; set; }
+        public Category Category { get; set; } = new Category();
 
-        [ValidateNever]
+        [Required(ErrorMessage = "Product image is required.")]
         public string ImageUrl { get; set; }
     }
 }
