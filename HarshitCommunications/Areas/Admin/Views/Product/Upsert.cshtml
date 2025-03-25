@@ -5,7 +5,7 @@
         <div class="card-header bg-primary bg-gradient ml-0 py-3">
             <div class="row">
                 <div class="col-12 text-center">
-                    <h2 class="text-white py-2">@(Model.Product.Id != 0 ? "Update" : "Create")</h2>
+                    <h2 class="text-white py-2">@(Model.Product.Id != 0 ? "Update" : "Add")</h2>
                 </div>
             </div>
         </div>
@@ -41,7 +41,6 @@
                                 <small class="text-muted">
                                     Enter specifications in Bullet Points.
                                 </small>
-                                <div class="text-danger" id="json-error" style="display:none;">Invalid JSON format.</div>
                             </div>
 
                             <div class="mb-3">
@@ -58,8 +57,13 @@
                             </div>
                             <div class="mb-3">
                                 <label asp-for="Product.ImageUrl">Upload an Image of the Product</label>
-                                <input type="file" name="file" class="form-control" />
+                                <input type="file" name="file" class="form-control" id="imageUpload" />
                                 <span asp-validation-for="Product.ImageUrl" class="text-danger"></span>
+                            </div>
+
+                            <!-- Image Preview -->
+                            <div class="text-center my-3">
+                                <img id="previewImage" src="#" alt="Product Image Preview" style="max-width: 200px; display: none;" class="rounded shadow">
                             </div>
 
                             <div class="row">
@@ -117,6 +121,18 @@
             document.querySelector("form").addEventListener("submit", function () {
                 descriptionInput.value = quill.root.innerHTML; // Save Quill content with <ol> and <li> tags
             });
+        });
+    </script>
+
+    <script>
+        document.getElementById("imageUpload").addEventListener("change", function(event) {
+            var reader = new FileReader();
+            reader.onload = function(){
+                var preview = document.getElementById("previewImage");
+                preview.src = reader.result;
+                preview.style.display = "block";
+            };
+            reader.readAsDataURL(event.target.files[0]);
         });
     </script>
 }

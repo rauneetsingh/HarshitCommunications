@@ -22,7 +22,12 @@ namespace HarshitCommunications.Areas.Customer.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            IEnumerable<Product> productList = _unitOfWork.Product.GetAll(includeProperties: "Category");
+            IEnumerable<Category> categoryList = _unitOfWork.Category.GetAll();
+
+            ViewBag.Categories = categoryList;
+
+            return View(productList);
         }
 
         public IActionResult AllProducts()
