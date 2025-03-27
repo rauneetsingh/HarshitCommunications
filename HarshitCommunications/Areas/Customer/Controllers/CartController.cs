@@ -74,50 +74,112 @@ namespace HarshitCommunications.Areas.Customer.Controllers
 
         [HttpPost]
         [ActionName("Summary")]
-        public IActionResult SummaryPOST()
+        public IActionResult SummaryPOST([Bind("OrderHeader")] ShoppingCartVM shoppingCartVM)
         {
             var claimsIdentity = (ClaimsIdentity)User.Identity;
             var userId = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier).Value;
 
-            ShoppingCartVM.ShoppingCartList = _unitOfWork.ShoppingCart.GetAll(u => u.ApplicationUserId == userId,
-                includeProperties: "Product");
-
-            ShoppingCartVM.OrderHeader.OrderDate = System.DateTime.Now;
-            ShoppingCartVM.OrderHeader.ApplicationUserId = userId;
-
-            ApplicationUser applicationUser = _unitOfWork.ApplicationUser.Get(u => u.Id == userId);
-
-            foreach (var cart in ShoppingCartVM.ShoppingCartList)
+            if (shoppingCartVM == null)
             {
-                cart.Price = GetPriceBasedOnQuantity(cart);
-                ShoppingCartVM.OrderHeader.OrderTotal += (cart.Price * cart.Count);
+                shoppingCartVM = new ShoppingCartVM();
             }
 
-            ShoppingCartVM.OrderHeader.PaymentStatus = SD.PaymentStatusPending;
-            ShoppingCartVM.OrderHeader.PaymentStatus = SD.StatusPending;
+            if (shoppingCartVM.OrderHeader == null)
+            {
+                shoppingCartVM.OrderHeader = new OrderHeader();
+            }
 
-            _unitOfWork.OrderHeader.Add(ShoppingCartVM.OrderHeader);
+            shoppingCartVM.ShoppingCartList = _unitOfWork.ShoppingCart.GetAll(
+                u => u.ApplicationUserId == userId, includeProperties: "Product")?.ToList();
+
+            if (shoppingCartVM.ShoppingCartList == null || !shoppingCartVM.ShoppingCartList.Any())
+            {
+                ModelState.AddModelError("", "Your cart is empty. Add items before proceeding.");
+                return View(shoppingCartVM);
+            }
+
+            shoppingCartVM.OrderHeader.ApplicationUserId = userId;
+            shoppingCartVM.OrderHeader.OrderDate = DateTime.Now;
+            shoppingCartVM.OrderHeader.PaymentStatus = SD.PaymentStatusPending;
+            shoppingCartVM.OrderHeader.OrderStatus = SD.StatusPending;
+
+            foreach (var cart in shoppingCartVM.ShoppingCartList)
+            {
+                cart.Price = GetPriceBasedOnQuantity(cart);
+                shoppingCartVM.OrderHeader.OrderTotal += (cart.Price * cart.Count);
+            }
+
+            // ✅ Save OrderHeader FIRST to get the ID
+            _unitOfWork.OrderHeader.Add(shoppingCartVM.OrderHeader);
             _unitOfWork.Save();
 
-            foreach (var cart in ShoppingCartVM.ShoppingCartList)
+            // ✅ Save Order Details
+            foreach (var cart in shoppingCartVM.ShoppingCartList)
             {
                 OrderDetail orderDetail = new()
                 {
                     ProductId = cart.ProductId,
-                    OrderHeaderId = ShoppingCartVM.OrderHeader.Id,
+                    OrderHeaderId = shoppingCartVM.OrderHeader.Id,
                     Price = cart.Price,
                     Count = cart.Count,
                 };
                 _unitOfWork.OrderDetail.Add(orderDetail);
-                _unitOfWork.Save();
             }
+            _unitOfWork.Save();
 
-            return RedirectToAction(nameof(OrderConfirmation), new { id = ShoppingCartVM.OrderHeader.Id });
+            // ✅ Razorpay Order Creation AFTER Saving OrderHeader
+            var order = PaymentService.CreateOrder((decimal)shoppingCartVM.OrderHeader.OrderTotal);
+            string razorpayOrderId = order["id"].ToString();
+
+            // ✅ Update OrderHeader with Razorpay Order ID
+            _unitOfWork.OrderHeader.UpdateRazorpayPaymentId(
+                shoppingCartVM.OrderHeader.Id,
+                sessionId: null,
+                paymentIntentId: razorpayOrderId
+            );
+            _unitOfWork.Save();
+
+            return RedirectToAction(nameof(Payment), new { id = shoppingCartVM.OrderHeader.Id });
         }
 
-        public IActionResult OrderConfirmation(int id)
+
+        public IActionResult Payment(int id)
         {
-            return View(id);
+            var orderHeader = _unitOfWork.OrderHeader.Get(u => u.Id == id, includeProperties: "ApplicationUser");
+            if (orderHeader == null)
+            {
+                return NotFound();
+            }
+
+            ViewBag.OrderId = orderHeader.PaymentIntentId; // Razorpay Order ID
+            ViewBag.Amount = (orderHeader.OrderTotal * 100).ToString("F0"); // Razorpay expects amount in paise
+            ViewBag.CustomerEmail = orderHeader.ApplicationUser.Email;
+            ViewBag.CustomerName = orderHeader.ApplicationUser.Name;
+
+            return View();
+        }
+
+
+        [HttpGet]
+        public IActionResult OrderConfirmation(string id)
+        {
+            // Validate ID
+            if (string.IsNullOrEmpty(id))
+            {
+                return Content("Invalid order ID.");
+            }
+
+            var orderHeader = _unitOfWork.OrderHeader.Get(u => u.PaymentIntentId == id, includeProperties: "ApplicationUser");
+            if (orderHeader == null)
+            {
+                return Content("Order not found.");
+            }
+
+            // Update order status
+            _unitOfWork.OrderHeader.UpdateStatus(orderHeader.Id, SD.StatusApproved, SD.PaymentStatusApproved);
+            _unitOfWork.Save();
+
+            return RedirectToAction("Index", "Cart");
         }
 
         public IActionResult Plus(int cartId)
