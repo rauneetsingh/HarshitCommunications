@@ -33,23 +33,23 @@ builder.Services.AddSession(options =>
     options.Cookie.IsEssential = true;
 });
 
-builder.Services.AddAuthentication(options =>
-{
-    options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-    options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-    options.DefaultChallengeScheme = GoogleDefaults.AuthenticationScheme;
-})
-.AddCookie()
-.AddGoogle(GoogleDefaults.AuthenticationScheme, options =>
-{
-    IConfigurationSection googleAuthNSection =
-        builder.Configuration.GetSection("Authentication:Google");
+//builder.Services.AddAuthentication(options =>
+//{
+//    options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+//    options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+//    options.DefaultChallengeScheme = GoogleDefaults.AuthenticationScheme;
+//})
+//.AddCookie()
+//.AddGoogle(GoogleDefaults.AuthenticationScheme, options =>
+//{
+//    IConfigurationSection googleAuthNSection =
+//        builder.Configuration.GetSection("Authentication:Google");
 
-    options.ClientId = googleAuthNSection["ClientId"];
-    options.ClientSecret = googleAuthNSection["ClientSecret"];
-    options.ClaimActions.MapJsonKey("urn:google:picture", "picture", "url");
-    options.SaveTokens = true;
-});
+//    options.ClientId = googleAuthNSection["ClientId"];
+//    options.ClientSecret = googleAuthNSection["ClientSecret"];
+//    options.ClaimActions.MapJsonKey("urn:google:picture", "picture", "url");
+//    options.SaveTokens = true;
+//});
 
 
 builder.Services.AddRazorPages();
