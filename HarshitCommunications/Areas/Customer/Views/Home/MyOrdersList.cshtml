@@ -1,0 +1,69 @@
+﻿<div class="container my-5">
+    <h2 class="text-center fw-bold mb-4">My Orders</h2>
+
+    <!-- Orders Table -->
+    <div class="card shadow border-0">
+        <div class="card-body">
+            <table id="tblData" class="table table-hover table-striped text-center align-middle">
+                <thead class="table-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Phone Number</th>
+                        <th>Email</th>
+                        <th>Status</th>
+                        <th>Total</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+<style>
+    .btn-primary {
+        background-color: #4a69bd;
+        border: none;
+    }
+
+        .btn-primary:hover {
+            background-color: #3b5998;
+        }
+
+    .card {
+        background: #ffffff;
+        border-radius: 10px;
+    }
+
+    .table {
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+        .table th, .table td {
+            vertical-align: middle;
+            text-align: left;
+        }
+
+    .table-hover tbody tr:hover {
+        background-color: rgba(74, 105, 189, 0.1);
+    }
+
+    .action-buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 8px; /* Adjust spacing between buttons */
+    }
+
+        .action-buttons .btn {
+            width: 100%; /* Ensures both buttons have equal width */
+        }
+
+</style>
+
+
+@section Scripts {
+    <script src="~/js/Order_Customer.js"></script>
+}

@@ -20,7 +20,7 @@ namespace HarshitCommunications.Models
         public ApplicationUser ApplicationUser { get; set; }
 
         public DateTime OrderDate { get; set; }
-        public DateTime ShippingTime { get; set; }
+        public DateTime ShippingDate { get; set; }
         public double OrderTotal { get; set; }
 
         public string? OrderStatus { get; set; }
@@ -29,8 +29,8 @@ namespace HarshitCommunications.Models
         public string? Carrier { get; set; }
 
         public DateTime PaymentDate { get; set; }
-        public string? SessionId { get; set; }
         public string? PaymentIntentId { get; set; }
+        public string? RazorpayOrderId { get; set; }
 
         [Required]
         public string Name { get; set; }

@@ -1,6 +1,8 @@
 ﻿using HarshitCommunications.DataAccess.Data;
 using HarshitCommunications.DataAccess.Repository.IRepository;
 using HarshitCommunications.Models;
+using HarshitCommunications.Utility;
+using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,20 +37,52 @@ namespace HarshitCommunications.DataAccess.Repository
             }
         }
 
-        public void UpdateRazorpayPaymentId(int id, string sessionId, string paymentIntentId)
+        public void UpdateRazorpayOrderId(int id, string RazorpayOrderId)
         {
             var orderFromDb = _db.OrderHeaders.FirstOrDefault(u => u.Id == id);
 
-            if (!string.IsNullOrEmpty(sessionId))
+            if (!string.IsNullOrEmpty(RazorpayOrderId))
             {
-                orderFromDb.SessionId = sessionId;
-            }
-
-            if (!string.IsNullOrEmpty(paymentIntentId))
-            {
-                orderFromDb.PaymentIntentId = paymentIntentId;
+                orderFromDb.RazorpayOrderId = RazorpayOrderId;
                 orderFromDb.PaymentDate = DateTime.Now;
             }
+        }
+
+        public bool RefundPayment(int orderId)
+        {
+            var orderHeader = _db.OrderHeaders.FirstOrDefault(o => o.Id == orderId);
+            if (orderHeader == null || string.IsNullOrEmpty(orderHeader.PaymentIntentId))
+            {
+                return false; // Order not found or PaymentIntentId is missing
+            }
+
+            var client = new RestClient("https://api.razorpay.com/v1/payments/" + orderHeader.PaymentIntentId + "/refund");
+            var request = new RestRequest { Method = Method.Post };
+
+            // Razorpay API Key & Secret (Replace with actual credentials)
+            string apiKey = "rzp_test_67XFtDb0zvHVVa";
+            string apiSecret = "CZBY8a0YpoBUadU9Ufa0fjDs";
+            string encodedAuth = Convert.ToBase64String(Encoding.UTF8.GetBytes($"{apiKey}:{apiSecret}"));
+            request.AddHeader("Authorization", $"Basic {encodedAuth}");
+
+            // Razorpay refund parameters
+            var body = new
+            {
+                amount = (orderHeader.OrderTotal * 100) // Convert to paise
+            };
+
+            request.AddJsonBody(body);
+
+            var response = client.Execute(request);
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                orderHeader.OrderStatus = SD.StatusRefunded;
+                orderHeader.PaymentStatus = SD.StatusRefunded;
+
+                return true;
+            }
+
+            return false;
         }
     }
 }

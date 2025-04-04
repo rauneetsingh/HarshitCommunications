@@ -181,10 +181,10 @@ namespace HarshitCommunications.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("SessionId")
+                    b.Property<string>("RazorpayOrderId")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("ShippingTime")
+                    b.Property<DateTime>("ShippingDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("State")

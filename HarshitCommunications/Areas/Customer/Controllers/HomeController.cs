@@ -3,7 +3,9 @@ using System.Security.Claims;
 using HarshitCommunications.DataAccess.Repository.IRepository;
 using HarshitCommunications.Models;
 using HarshitCommunications.Models.ViewModels;
+using HarshitCommunications.Utility;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HarshitCommunications.Areas.Customer.Controllers
@@ -14,6 +16,9 @@ namespace HarshitCommunications.Areas.Customer.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly IUnitOfWork _unitOfWork;
 
+        [BindProperty]
+        public OrderVM OrderVM { get; set; }
+
         public HomeController(ILogger<HomeController> logger, IUnitOfWork unitOfWork)
         {
             _logger = logger;
@@ -22,6 +27,15 @@ namespace HarshitCommunications.Areas.Customer.Controllers
 
         public IActionResult Index()
         {
+            var claimsIdentity = (ClaimsIdentity)User.Identity;
+            var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+
+            if (claim != null)
+            {
+                HttpContext.Session.SetInt32(SD.SessionCart,
+                _unitOfWork.ShoppingCart.GetAll(u => u.ApplicationUserId == claim.Value).Count());
+            }
+
             IEnumerable<Product> productList = _unitOfWork.Product.GetAll(includeProperties: "Category");
             IEnumerable<Category> categoryList = _unitOfWork.Category.GetAll();
 
@@ -70,17 +84,6 @@ namespace HarshitCommunications.Areas.Customer.Controllers
         [Authorize]
         public IActionResult Details(ShoppingCart shoppingCart)
         {
-            //if (!ModelState.IsValid)
-            //{
-            //    foreach (var error in ModelState.Values.SelectMany(v => v.Errors))
-            //    {
-            //        Console.WriteLine($"Model Binding Error: {error.ErrorMessage}");
-            //    }
-            //}
-
-            //Console.WriteLine($"Received ProductId: {shoppingCart.ProductId}");
-            //Console.WriteLine($"Received Count: {shoppingCart.Count}");  // Debugging count value
-
             var claimsIdentity = (ClaimsIdentity)User.Identity;
             var userId = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier).Value;
             shoppingCart.ApplicationUserId = userId;
@@ -88,23 +91,42 @@ namespace HarshitCommunications.Areas.Customer.Controllers
             ShoppingCart cartFromDb = _unitOfWork.ShoppingCart.Get(
                 u => u.ApplicationUserId == userId && u.ProductId == shoppingCart.ProductId);
 
-            if(cartFromDb != null)
+            if (cartFromDb != null)
             {
                 //shopping cart exists
                 cartFromDb.Count += shoppingCart.Count;
                 _unitOfWork.ShoppingCart.Update(cartFromDb);
+                _unitOfWork.Save();
             }
 
             else
             {
                 //add to cart
                 _unitOfWork.ShoppingCart.Add(shoppingCart);
+                _unitOfWork.Save();
+                HttpContext.Session.SetInt32(SD.SessionCart,
+                    _unitOfWork.ShoppingCart.GetAll(u => u.ApplicationUserId == userId).Count());
             }
 
             TempData["success"] = "Cart Updated successfully!";
 
-            _unitOfWork.Save();
             return RedirectToAction(nameof(Index));
+        }
+
+        public IActionResult MyOrdersList()
+        {
+            return View();
+        }
+
+        public IActionResult MyOrder(int orderId)
+        {
+            OrderVM = new()
+            {
+                OrderHeader = _unitOfWork.OrderHeader.Get(u => u.Id == orderId, includeProperties: "ApplicationUser"),
+                OrderDetail = _unitOfWork.OrderDetail.GetAll(u => u.OrderHeaderId == orderId, includeProperties: "Product")
+            };
+
+            return View(OrderVM);
         }
 
         public IActionResult Privacy()
@@ -117,5 +139,37 @@ namespace HarshitCommunications.Areas.Customer.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+        #region API CALLS
+
+        [HttpGet]
+        public IActionResult GetAll(string status)
+        {
+            var claimsIdentity = (ClaimsIdentity)User.Identity;
+            var userId = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier).Value;
+
+            IEnumerable<OrderHeader> objOrderHeaders = _unitOfWork.OrderHeader.GetAll(u => u.ApplicationUserId == userId, includeProperties: "ApplicationUser");
+
+            switch (status)
+            {
+                case "pending":
+                    objOrderHeaders = objOrderHeaders.Where(u => u.PaymentStatus == SD.PaymentStatusPending);
+                    break;
+                case "inprocess":
+                    objOrderHeaders = objOrderHeaders.Where(u => u.PaymentStatus == SD.StatusInProcess);
+                    break;
+                case "completed":
+                    objOrderHeaders = objOrderHeaders.Where(u => u.PaymentStatus == SD.StatusShipped);
+                    break;
+                case "approved":
+                    objOrderHeaders = objOrderHeaders.Where(u => u.PaymentStatus == SD.StatusApproved);
+                    break;
+                default:
+                    break;
+            }
+            return Json(new { data = objOrderHeaders });
+        }
+
+        #endregion
     }
 }

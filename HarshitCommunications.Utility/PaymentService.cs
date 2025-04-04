@@ -10,8 +10,8 @@ namespace HarshitCommunications.Utility
 {
     public class PaymentService
     {
-        private const string keyId = "rzp_test_67XFtDb0zvHVVa";
-        private const string keySecret = "CZBY8a0YpoBUadU9Ufa0fjDs";
+        public const string keyId = "rzp_test_67XFtDb0zvHVVa";
+        public const string keySecret = "CZBY8a0YpoBUadU9Ufa0fjDs";
 
         public static Order CreateOrder(decimal amount)
         {

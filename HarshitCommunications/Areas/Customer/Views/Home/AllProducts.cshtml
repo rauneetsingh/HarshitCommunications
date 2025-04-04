@@ -1,15 +1,15 @@
 ﻿@model IEnumerable<Product>
 
-<header class="bg-dark py-5 product-header">
-    <div class="container px-4 px-lg-5 my-5">
-        <div class="text-center text-start">
-            <h1 class="display-4 fw-bolder text-start text-dark">Shop in Style</h1>
-            <p class="lead fw-normal text-dark-50 mb-0 text-start">Harshit Communications</p>
-        </div>
-    </div>
-</header>
+@* <header class="bg-dark py-5 product-header"> *@
+@*     <div class="container px-4 px-lg-5 my-5"> *@
+@*         <div class="text-center text-start"> *@
+@*             <h1 class="display-4 fw-bolder text-start text-dark">Shop in Style</h1> *@
+@*             <p class="lead fw-normal text-dark-50 mb-0 text-start">Harshit Communications</p> *@
+@*         </div> *@
+@*     </div> *@
+@* </header> *@
 
-<section class="py-5">
+<section style="padding-top: 80px;">
     <div class="container">
         <div class="row">
             <!-- Filter Sidebar -->
@@ -39,8 +39,7 @@
                                     <strong>@product.Price.ToString("C", new System.Globalization.CultureInfo("hi-IN"))</strong>
                                 </div>
                                 <div class="card-footer bg-transparent text-center">
-                                    <a class="btn btn-warning w-75" asp-area="Customer" asp-controller="Home" asp-action="Details"><i class="bi bi-cart"></i> Add to Cart</a>
-                                    <a class="btn btn-outline-primary w-75 mt-2" asp-area="Customer" asp-controller="Home" asp-action="Details" asp-route-productID="@product.Id">More Details</a>
+                                    <a class="btn btn-black w-75 mt-2" asp-area="Customer" asp-controller="Home" asp-action="Details" asp-route-productID="@product.Id">More Details</a>
                                 </div>
                             </div>
                         </div>

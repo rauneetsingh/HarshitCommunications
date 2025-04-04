@@ -10,8 +10,8 @@ namespace HarshitCommunications.DataAccess.Repository.IRepository
     public interface IOrderHeaderRepository : IRepository<OrderHeader>
     {
         void Update(OrderHeader obj);
-
         void UpdateStatus(int id, string orderStatus, string? paymentStatus = null);
-        void UpdateRazorpayPaymentId(int id, string sessionId, string paymentIntentId);
+        void UpdateRazorpayOrderId(int id, string RazorpayOrderId);
+        bool RefundPayment(int orderId);
     }
 }

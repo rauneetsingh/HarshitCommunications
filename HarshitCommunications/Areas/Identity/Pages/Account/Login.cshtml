@@ -39,19 +39,13 @@
         }
     </style>
 
-    <div class="container px-4 py-5 px-md-5 text-center text-lg-start my-5">
+    <div class="container-fluid px-4 py-5 px-md-5 text-center text-lg-start my-5">
         <div class="row gx-lg-5 align-items-center mb-5">
             <div class="col-lg-6 mb-5 mb-lg-0" style="z-index: 10">
                 <h1 class="my-5 display-5 fw-bold ls-tight" style="color: hsl(218, 81%, 95%)">
                     Sign in<br />
                     <span style="color: hsl(218, 81%, 75%)">To shop smarter and faster!</span>
                 </h1>
-                <p class="mb-4 opacity-70" style="color: hsl(218, 81%, 85%)">
-                    Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                    Temporibus, expedita iusto veniam atque, magni tempora mollitia
-                    dolorum consequatur nulla, neque debitis eos reprehenderit quasi
-                    ab ipsum nisi dolorem modi. Quos?
-                </p>
             </div>
 
             <div class="col-lg-6 mb-5 mb-lg-0 position-relative">
@@ -75,12 +69,18 @@
                                 <span asp-validation-for="Input.Password" class="text-danger"></span>
                             </div>
 
-                            <!-- Submit button -->
-                            <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-block mb-4">
-                                Sign in
-                            </button>
+                            <div class="d-flex justify-content-between">
+                                <!-- Submit button -->
+                                <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-block mb-4">
+                                    Sign in
+                                </button>
 
-                            <!-- Register buttons -->
+                                <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl" data-mdb-button-init data-mdb-ripple-init class="btn btn-outline-primary btn-block mb-4">
+                                    New User?
+                                </a>
+                            </div>
+
+                            @* <!-- Register buttons -->
                             <div class="text-center">
                                 <p>or sign up with:</p>
                                 <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-link btn-floating mx-1">
@@ -98,7 +98,7 @@
                                 <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-link btn-floating mx-1">
                                     <i class="fab fa-github"></i>
                                 </button>
-                            </div>
+                            </div> *@
                         </form>
                     </div>
                 </div>
