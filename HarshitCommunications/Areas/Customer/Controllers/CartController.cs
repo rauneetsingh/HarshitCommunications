@@ -124,6 +124,21 @@ namespace HarshitCommunications.Areas.Customer.Controllers
                     Count = cart.Count,
                 };
                 _unitOfWork.OrderDetail.Add(orderDetail);
+
+                // Decrease stock
+                var product = _unitOfWork.Product.Get(u => u.Id == cart.ProductId);
+                if (product != null)
+                {
+                    if (product.StockQuantity < cart.Count)
+                    {
+                        // Optional: You can choose to return an error or handle partial stock
+                        TempData["Error"] = $"Insufficient stock for {product.Name}.";
+                        return RedirectToAction("Index", "Cart");
+                    }
+
+                    product.StockQuantity -= cart.Count;
+                    _unitOfWork.Product.Update(product);
+                }
             }
             _unitOfWork.Save();
 
@@ -141,60 +156,9 @@ namespace HarshitCommunications.Areas.Customer.Controllers
 
                 return RedirectToAction(nameof(Payment), new { id = shoppingCartVM.OrderHeader.Id });
             }
-            else if (paymentType == "CashOnDelivery")
-            {
-                // Update order as Approved for COD
-                _unitOfWork.OrderHeader.UpdateStatus(
-                    shoppingCartVM.OrderHeader.Id,
-                    SD.StatusApproved,
-                    SD.PaymentStatusApproved
-                );
-
-                // Clear shopping cart
-                var shoppingCartItems = _unitOfWork.ShoppingCart.GetAll(u => u.ApplicationUserId == userId);
-                if (shoppingCartItems != null && shoppingCartItems.Any())
-                {
-                    _unitOfWork.ShoppingCart.RemoveRange(shoppingCartItems);
-                }
-
-                _unitOfWork.Save();
-
-                return RedirectToAction(nameof(CODOrderSuccess), new { id = shoppingCartVM.OrderHeader.Id });
-            }
 
             return RedirectToAction(nameof(Index), "Cart");
 
-        }
-
-        [HttpGet]
-        public IActionResult CashOnDelivery(int id)
-        {
-            var orderHeader = _unitOfWork.OrderHeader.Get(u => u.Id == id, includeProperties: "ApplicationUser");
-            if (orderHeader == null)
-            {
-                return NotFound();
-            }
-
-            // Update order statuses to Approved
-            orderHeader.PaymentStatus = SD.PaymentStatusApproved;
-            orderHeader.OrderStatus = SD.StatusApproved;
-            _unitOfWork.Save();
-
-            return RedirectToAction(nameof(CODOrderSuccess), new { id = orderHeader.Id });
-        }
-
-        [HttpGet]
-        public IActionResult CODOrderSuccess(int id)
-        {
-            var orderHeader = _unitOfWork.OrderHeader.Get(u => u.Id == id, includeProperties: "ApplicationUser");
-            if (orderHeader == null)
-            {
-                return NotFound();
-            }
-
-            ViewBag.OrderId = orderHeader.PaymentIntentId;
-
-            return View(orderHeader); // Pass the order details to the view
         }
 
         public IActionResult Payment(int id)
@@ -290,6 +254,8 @@ namespace HarshitCommunications.Areas.Customer.Controllers
 
             // Approve the order
             _unitOfWork.OrderHeader.UpdateStatus(orderHeader.Id, SD.StatusApproved, SD.PaymentStatusApproved);
+
+            HttpContext.Session.Clear();
 
             // Clear the shopping cart
             var shoppingCartItems = _unitOfWork.ShoppingCart.GetAll(u => u.ApplicationUserId == orderHeader.ApplicationUserId);

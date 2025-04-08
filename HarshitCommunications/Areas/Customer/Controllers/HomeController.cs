@@ -54,6 +54,34 @@ namespace HarshitCommunications.Areas.Customer.Controllers
             return View(productList);
         }
 
+        [HttpGet]
+        public IActionResult FilterProducts([FromQuery] int[] categoryIds, string sortOption)
+        {
+            Console.WriteLine("Category IDs received: " + string.Join(", ", categoryIds ?? new int[0]));
+            Console.WriteLine("SortOption received: " + sortOption);
+
+            // Fetch all products if no categories are selected
+            var filteredProducts = _unitOfWork.Product.GetAll(includeProperties: "Category");
+
+            // Apply filtering if categoryIds are provided
+            if (categoryIds != null && categoryIds.Any())
+            {
+                filteredProducts = filteredProducts.Where(p => categoryIds.Contains(p.CategoryId));
+            }
+
+            // Apply sorting logic
+            if (sortOption == "price-asc")
+            {
+                filteredProducts = filteredProducts.OrderBy(p => p.Price);
+            }
+            else if (sortOption == "price-desc")
+            {
+                filteredProducts = filteredProducts.OrderByDescending(p => p.Price);
+            }
+
+            // Return the filtered and/or sorted products
+            return PartialView("_ProductGrid", filteredProducts);
+        }
 
         public IActionResult Details(int productID)
         {
@@ -90,6 +118,12 @@ namespace HarshitCommunications.Areas.Customer.Controllers
 
             ShoppingCart cartFromDb = _unitOfWork.ShoppingCart.Get(
                 u => u.ApplicationUserId == userId && u.ProductId == shoppingCart.ProductId);
+
+            if (cartFromDb.Product.StockQuantity <= 0)
+            {
+                TempData["Error"] = "This product is currently out of stock.";
+                return RedirectToAction("Index");
+            }
 
             if (cartFromDb != null)
             {
@@ -150,19 +184,24 @@ namespace HarshitCommunications.Areas.Customer.Controllers
 
             IEnumerable<OrderHeader> objOrderHeaders = _unitOfWork.OrderHeader.GetAll(u => u.ApplicationUserId == userId, includeProperties: "ApplicationUser");
 
+            Console.WriteLine($"Status Received: {status}");
+
             switch (status)
             {
                 case "pending":
-                    objOrderHeaders = objOrderHeaders.Where(u => u.PaymentStatus == SD.PaymentStatusPending);
+                    objOrderHeaders = objOrderHeaders.Where(u => u.OrderStatus == SD.StatusPending);
                     break;
                 case "inprocess":
-                    objOrderHeaders = objOrderHeaders.Where(u => u.PaymentStatus == SD.StatusInProcess);
+                    objOrderHeaders = objOrderHeaders.Where(u => u.OrderStatus == SD.StatusInProcess);
                     break;
                 case "completed":
-                    objOrderHeaders = objOrderHeaders.Where(u => u.PaymentStatus == SD.StatusShipped);
+                    objOrderHeaders = objOrderHeaders.Where(u => u.OrderStatus == SD.StatusShipped);
                     break;
                 case "approved":
-                    objOrderHeaders = objOrderHeaders.Where(u => u.PaymentStatus == SD.StatusApproved);
+                    objOrderHeaders = objOrderHeaders.Where(u => u.OrderStatus == SD.StatusApproved);
+                    break;
+                case "refunded":
+                    objOrderHeaders = objOrderHeaders.Where(u => u.OrderStatus == SD.StatusRefunded);
                     break;
                 default:
                     break;

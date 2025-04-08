@@ -34,5 +34,7 @@ namespace HarshitCommunications.Models
 
         [Required(ErrorMessage = "Product image is required.")]
         public string ImageUrl { get; set; }
+
+        public int? StockQuantity { get; set; }
     }
 }

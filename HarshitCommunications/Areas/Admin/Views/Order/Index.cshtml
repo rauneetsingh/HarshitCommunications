@@ -1,16 +1,13 @@
 ﻿@{
-    var status = Context.Request.Query["Status"];
-    var pending = "text-primary";
+    var status = Context.Request.Query["status"];
     var inprocess = "text-primary";
     var completed = "text-primary";
     var approved = "text-primary";
+    var refunded = "text-primary";
     var all = "text-primary";
 
     switch (status)
     {
-        case "pending":
-            pending = "active text-white bg-primary";
-            break;
         case "inprocess":
             inprocess = "active text-white bg-primary";
             break;
@@ -20,8 +17,11 @@
         case "approved":
             approved = "active text-white bg-primary";
             break;
+        case "refunded":
+            refunded = "active text-white bg-primary";
+            break;
         default:
-            all = "active text-white bg-priamry";
+            all = "active text-white bg-primary";
             break;
     }
 }
@@ -40,14 +40,14 @@
                 <a style="text-decoration: none;" asp-controller="Order" asp-action="Index" asp-route-status="inprocess">
                 <li class="list-group-item @inprocess">In Process</li>
                 </a>
-                <a style="text-decoration: none;" asp-controller="Order" asp-action="Index" asp-route-status="pending">
-                <li class="list-group-item @pending">Payment Pending</li>
-                </a>
                 <a style="text-decoration: none;" asp-controller="Order" asp-action="Index" asp-route-status="completed">
-                <li class="list-group-item @completed">Completed</li>
+                <li class="list-group-item @completed">Shipped</li>
                 </a>
                 <a style="text-decoration: none;" asp-controller="Order" asp-action="Index" asp-route-status="approved">
                 <li class="list-group-item @approved">Approved</li>
+                </a>
+                <a style="text-decoration: none;" asp-controller="Order" asp-action="Index" asp-route-status="refunded">
+                <li class="list-group-item @refunded">Refunded</li>
                 </a>
                 <a style="text-decoration: none;" asp-controller="Order" asp-action="Index" asp-route-status="all">
                 <li class="list-group-item @all">All</li>
@@ -57,10 +57,10 @@
         <table id="tblData" class="table table-hover table-bordered text-center align-middle">
             <thead class="table-dark">
                 <tr>
-                    <th>ID</th>
                     <th>Name</th>
                     <th>Phone Number</th>
                     <th>Email</th>
+                    <th>Order Date</th>
                     <th>Status</th>
                     <th>Total</th>
                     <th></th>
@@ -109,8 +109,14 @@
             width: 100%; /* Ensures both buttons have equal width */
         }
 
-</style>
+    .list-group-item.active {
+        border: none;
+    }
 
+    .list-group-item:hover {
+        background-color: rgba(74, 105, 189, 0.2);
+    }
+</style>
 
 @section Scripts {
     <script src="~/js/order.js"></script>

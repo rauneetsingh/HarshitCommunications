@@ -1,26 +1,26 @@
 ﻿<div class="container my-5">
-    <h2 class="text-center fw-bold mb-4">My Orders</h2>
-
-    <!-- Orders Table -->
-    <div class="card shadow border-0">
-        <div class="card-body">
-            <table id="tblData" class="table table-hover table-striped text-center align-middle">
-                <thead class="table-dark">
-                    <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Phone Number</th>
-                        <th>Email</th>
-                        <th>Status</th>
-                        <th>Total</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-            </table>
+    <div class="row pt-4 pb-3">
+        <div class="col-md-6">
+            <h2 class="fw-bold">My Orders</h2>
         </div>
     </div>
-</div>
 
+    <div class="card shadow-lg border-0 p-4">
+        <table id="tblData" class="table table-hover table-bordered text-center align-middle">
+            <thead class="table-dark">
+                <tr>
+                    <th>Name</th>
+                    <th>Phone Number</th>
+                    <th>Email</th>
+                    <th>Order Date</th>
+                    <th>Status</th>
+                    <th>Total</th>
+                    <th></th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+</div>
 
 <style>
     .btn-primary {
@@ -61,6 +61,13 @@
             width: 100%; /* Ensures both buttons have equal width */
         }
 
+    .list-group-item.active {
+        border: none;
+    }
+
+    .list-group-item:hover {
+        background-color: rgba(74, 105, 189, 0.2);
+    }
 </style>
 
 

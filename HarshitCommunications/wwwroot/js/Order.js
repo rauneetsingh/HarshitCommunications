@@ -2,27 +2,15 @@
 
 $(document).ready(function () {
     var url = window.location.search;
-    if (url.includes("inprocess")) {
-        loadDataTable("inprocess");
-    }
-    else {
-        if (url.includes("completed")) {
-            loadDataTable("completed");
-        }
-        else {
-            if (url.includes("pending")) {
-                loadDataTable("pending");
-            }
-            else {
-                if (url.includes("approved")) {
-                    loadDataTable("approved");
-                }
-                else {
-                    loadDataTable("all");
-                }
-            }
-        }
-    }
+    let status = "all"; // Default to "all"
+    if (url.includes("inprocess")) status = "inprocess";
+    else if (url.includes("completed")) status = "completed";
+    else if (url.includes("pending")) status = "pending";
+    else if (url.includes("approved")) status = "approved";
+    else if (url.includes("refunded")) status = "refunded";
+
+    console.log("Loading DataTable with status: " + status);
+    loadDataTable(status);
 });
 
 function loadDataTable(status) {
@@ -30,11 +18,21 @@ function loadDataTable(status) {
         "ajax": {
             "url": '/Admin/order/getall?status='+status
         },
+        "order": [[3, "desc"]],
         "columns": [
-            { "data": "id", "width": "5%" },
             { "data": "name", "width": "25%" },
-            { "data": "phoneNumber", "width": "10%" },
+            { "data": "phoneNumber", "width": "15%" },
             { "data": "applicationUser.email", "width": "25%" },
+            {
+                "data": "orderDate",
+                "render": function (data) {
+                    // Convert raw date to desired format (YYYY-MM-DD)
+                    const date = new Date(data);
+                    const formattedDate = date.toLocaleDateString('hi-IN');
+                    return formattedDate;
+                },
+                "width": "15%"
+            },
             { "data": "orderStatus", "width": "10%" },
             { "data": "orderTotal", "width": "10%" },
             {

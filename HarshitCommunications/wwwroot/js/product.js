@@ -29,6 +29,7 @@ function loadDataTable() {
                 },
                 "width": "5%"
             },
+            { "data": "stockQuantity", "width": "5%" },
             {
                 "data": "id",
                 "render": function (data) {

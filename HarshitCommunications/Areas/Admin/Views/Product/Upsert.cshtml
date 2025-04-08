@@ -66,6 +66,12 @@
                                 <img id="previewImage" src="#" alt="Product Image Preview" style="max-width: 200px; display: none;" class="rounded shadow">
                             </div>
 
+                            <div class="mb-3">
+                                <label asp-for="Product.StockQuantity">Current Stock : </label>
+                                <input asp-for="Product.StockQuantity" class="form-control" type="number" min="0" />
+                                <span asp-validation-for="Product.StockQuantity" class="text-danger"></span>
+                            </div>
+
                             <div class="row">
                                 <div class="col-6 col-md-3">
                                     @if (Model.Product.Id != 0)

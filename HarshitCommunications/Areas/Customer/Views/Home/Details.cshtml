@@ -8,10 +8,8 @@
             <div class="row gx-4 gx-lg-5 align-items-center">
                 <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" src="@Model.Cart.Product.ImageUrl" alt="..." /></div>
                 <div class="col-md-6">
-                    @* <div class="small mb-1">SKU: BST-498</div> *@
                     <h1 class="display-5 fw-bolder">@Model.Cart.Product.Name</h1>
                     <div class="fs-5 mb-4">
-                        @*                     <span class="text-decoration-line-through">$45.00</span> *@
                         <span>@Model.Cart.Product.Price.ToString("C", new System.Globalization.CultureInfo("hi-IN"))</span>
                     </div>
                     <div>
@@ -19,13 +17,25 @@
                     </div>
                     <h2>Specifications :</h2>
                     <p class="lead">@Html.Raw(Model.Cart.Product.Description)</p>
-                    <div class="d-flex">
-                        <input asp-for="Cart.Count" class="form-control text-center me-3" id="inputQuantity" type="number" name="Count" value="1" style="max-width: 4rem" />
-                        <button class="btn btn-warning flex-shrink-0" type="submit">
-                            <i class="bi-cart-fill me-1"></i>
-                            Add to cart
-                        </button>
-                    </div>
+                    @if (Model.Cart.Product.StockQuantity != 0)
+                    {
+                        <div class="d-flex">
+                            <input asp-for="Cart.Count" class="form-control text-center me-3" id="inputQuantity" type="number" name="Count" min="1" max="@Model.Cart.Product.StockQuantity" style="max-width: 4rem" />
+                            <button class="btn btn-warning flex-shrink-0" type="submit">
+                                <i class="bi-cart-fill me-1"></i>
+                                Add to cart
+                            </button>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="d-flex">
+                            <button class="btn btn-danger flex-shrink-0" type="submit" disabled>
+                                <i class="bi bi-exclamation-triangle"></i>
+                                This Product is currently out of stock
+                            </button>
+                        </div>
+                    }
                 </div>
             </div>
         </div>

@@ -9,178 +9,198 @@
 <section class="background-radial-gradient overflow-hidden">
     <style>
         .background-radial-gradient {
-            background-color: hsl(218, 41%, 15%);
-            background-image: radial-gradient(650px circle at 0% 0%, hsl(218, 41%, 35%) 15%, hsl(218, 41%, 30%) 35%, hsl(218, 41%, 20%) 75%, hsl(218, 41%, 19%) 80%, transparent 100%), radial-gradient(1250px circle at 100% 100%, hsl(218, 41%, 45%) 15%, hsl(218, 41%, 30%) 35%, hsl(218, 41%, 20%) 75%, hsl(218, 41%, 19%) 80%, transparent 100%);
+        background-color: hsl(218, 41%, 15%);
+        background-image: radial-gradient(650px circle at 0% 0%, hsl(218, 41%, 35%) 15%, hsl(218, 41%, 30%) 35%, hsl(218, 41%, 20%) 75%, hsl(218, 41%, 19%) 80%, transparent 100%), radial-gradient(1250px circle at 100% 100%, hsl(218, 41%, 45%) 15%, hsl(218, 41%, 30%) 35%, hsl(218, 41%, 20%) 75%, hsl(218, 41%, 19%) 80%, transparent 100%);
         }
 
         #radius-shape-1 {
-            height: 220px;
-            width: 220px;
-            top: -60px;
-            left: -130px;
-            background: radial-gradient(#44006b, #ad1fff);
-            overflow: hidden;
+        height: 220px;
+        width: 220px;
+        top: -60px;
+        left: -130px;
+        background: radial-gradient(#44006b, #ad1fff);
+        overflow: hidden;
         }
 
         #radius-shape-2 {
-            border-radius: 38% 62% 63% 37% / 70% 33% 67% 30%;
-            bottom: -60px;
-            right: -110px;
-            width: 300px;
-            height: 300px;
-            background: radial-gradient(#44006b, #ad1fff);
-            overflow: hidden;
+        border-radius: 38% 62% 63% 37% / 70% 33% 67% 30%;
+        bottom: -60px;
+        right: -110px;
+        width: 300px;
+        height: 300px;
+        background: radial-gradient(#44006b, #ad1fff);
+        overflow: hidden;
         }
 
         .bg-glass {
-            background-color: hsla(0, 0%, 100%, 0.9) !important;
-            backdrop-filter: saturate(200%) blur(25px);
+        background-color: hsla(0, 0%, 100%, 0.9) !important;
+        backdrop-filter: saturate(200%) blur(25px);
         }
     </style>
 
-    <div class="container-fluid px-4 py-5 px-md-5 text-center text-lg-start my-5">
+    <div class="container-fluid px-4 py-5 text-center text-lg-start my-5">
         <div class="row gx-lg-5 align-items-center mb-5">
+            <!-- Left Section -->
             <div class="col-lg-6 mb-5 mb-lg-0" style="z-index: 10">
-                <h1 class="my-5 display-5 fw-bold ls-tight" style="color: hsl(218, 81%, 95%)">
-                    Register Yourself<br />
-                    <span style="color: hsl(218, 81%, 75%)">To shop smarter and faster!</span>
-                </h1>
+                @if (User.IsInRole(SD.Role_Admin))
+                {
+                    <h1 class="display-5 fw-bold ls-tight" style="color: hsl(218, 81%, 95%)">
+                        Register Yourself<br />
+                        <span class="text-warning">(ADMIN PORTAL)</span>
+                    </h1>
+                    <p class="text-muted mt-3">
+                        Manage administrative access and add users to your system efficiently.
+                    </p>
+                }
+                else
+                {
+                    <h1 class="display-5 fw-bold ls-tight" style="color: hsl(218, 81%, 95%)">
+                        Register Yourself<br />
+                        <span style="color: hsl(218, 81%, 75%)">To shop smarter and faster!</span>
+                    </h1>
+                    <p class="text-muted mt-3">
+                        Join us to enjoy exclusive offers and track your shopping seamlessly.
+                    </p>
+                }
             </div>
 
+            <!-- Right Section: Registration Form -->
             <div class="col-lg-6 mb-5 mb-lg-0 position-relative">
+                <!-- Background Shapes -->
                 <div id="radius-shape-1" class="position-absolute rounded-circle shadow-5-strong"></div>
                 <div id="radius-shape-2" class="position-absolute shadow-5-strong"></div>
 
-                <div class="card bg-glass">
-                    <div class="card-body px-4 py-5 px-md-5">
-                        <form id="account" asp-route-returnUrl="@Model.ReturnUrl" method="post">
-                            <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+                <div class="card bg-glass border-0 shadow-lg">
+                    <div class="card-body p-5">
+                        <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+                            <!-- Validation Summary -->
+                            <div asp-validation-summary="ModelOnly" class="text-danger mb-4" role="alert"></div>
 
+                            <!-- Fullname and Email -->
                             <div class="row">
-                                <div class="col-md-6">
-                                    <div data-mdb-input-init class="form-outline mb-4">
-                                        <input asp-for="Input.Name" class="form-control" />
-                                        <label class="form-label" asp-for="Input.Name">Fullname</label>
+                                <div class="col-md-6 mb-4">
+                                    <div class="form-outline">
+                                        <input asp-for="Input.Name" class="form-control" placeholder="Enter your full name" />
                                         <span asp-validation-for="Input.Name" class="text-danger"></span>
                                     </div>
                                 </div>
-
-                                <div class="col-md-6">
-                                    <div data-mdb-input-init class="form-outline mb-4">
-                                        <input asp-for="Input.Email" class="form-control" />
-                                        <label class="form-label" asp-for="Input.Email">Email Address</label>
+                                <div class="col-md-6 mb-4">
+                                    <div class="form-outline">
+                                        <input asp-for="Input.Email" class="form-control" placeholder="Enter your email" />
                                         <span asp-validation-for="Input.Email" class="text-danger"></span>
                                     </div>
                                 </div>
                             </div>
 
+                            <!-- Password and Confirm Password -->
                             <div class="row">
-                                <div class="col-md-6">
-                                    <div data-mdb-input-init class="form-outline mb-4">
-                                        <input asp-for="Input.Password" type="password" class="form-control" />
-                                        <label class="form-label" asp-for="Input.Password">Password</label>
+                                <div class="col-md-6 mb-4">
+                                    <div class="form-outline">
+                                        <input asp-for="Input.Password" type="password" class="form-control" placeholder="Enter your password" />
                                         <span asp-validation-for="Input.Password" class="text-danger"></span>
                                     </div>
                                 </div>
-
-                                <div class="col-md-6">
-                                    <div data-mdb-input-init class="form-outline mb-4">
-                                        <input asp-for="Input.ConfirmPassword" type="password" class="form-control" />
-                                        <label class="form-label" asp-for="Input.ConfirmPassword">Confirm Password</label>
+                                <div class="col-md-6 mb-4">
+                                    <div class="form-outline">
+                                        <input asp-for="Input.ConfirmPassword" type="password" class="form-control" placeholder="Confirm your password" />
                                         <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
                                     </div>
                                 </div>
                             </div>
 
+                            <!-- Phone Number and Address -->
                             <div class="row">
-                                <div class="col-md-6">
-                                    <div data-mdb-input-init class="form-outline mb-4">
-                                        <input asp-for="Input.PhoneNumber" class="form-control" />
-                                        <label class="form-label" asp-for="Input.PhoneNumber">Phone Number</label>
+                                <div class="col-md-6 mb-4">
+                                    <div class="form-outline">
+                                        <input asp-for="Input.PhoneNumber" class="form-control" placeholder="Phone number" />
                                         <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
                                     </div>
                                 </div>
-
-                                <div class="col-md-6">
-                                    <div data-mdb-input-init class="form-outline mb-4">
-                                        <input asp-for="Input.Address" class="form-control" />
-                                        <label class="form-label" asp-for="Input.Address">Address</label>
+                                <div class="col-md-6 mb-4">
+                                    <div class="form-outline">
+                                        <input asp-for="Input.Address" class="form-control" placeholder="Address" />
                                         <span asp-validation-for="Input.Address" class="text-danger"></span>
                                     </div>
                                 </div>
                             </div>
 
+                            <!-- City, State, and Pincode -->
                             <div class="row">
-                                <div class="col-md-6">
-                                    <div data-mdb-input-init class="form-outline mb-4">
-                                        <input asp-for="Input.City" class="form-control" />
-                                        <label class="form-label" asp-for="Input.City">City</label>
+                                <div class="col-md-4 mb-4">
+                                    <div class="form-outline">
+                                        <input asp-for="Input.City" class="form-control" placeholder="City" />
                                         <span asp-validation-for="Input.City" class="text-danger"></span>
                                     </div>
                                 </div>
-
-                                <div class="col-md-6">
-                                    <div data-mdb-input-init class="form-outline mb-4">
-                                        <input asp-for="Input.State" class="form-control" />
-                                        <label class="form-label" asp-for="Input.State">State</label>
+                                <div class="col-md-4 mb-4">
+                                    <div class="form-outline">
+                                        <input asp-for="Input.State" class="form-control" placeholder="State" />
                                         <span asp-validation-for="Input.State" class="text-danger"></span>
                                     </div>
                                 </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div data-mdb-input-init class="form-outline mb-4">
-                                        <input asp-for="Input.Pincode" class="form-control" />
-                                        <label class="form-label" asp-for="Input.Pincode">Pincode</label>
+                                <div class="col-md-4 mb-4">
+                                    <div class="form-outline">
+                                        <input asp-for="Input.Pincode" class="form-control" placeholder="Pincode" />
                                         <span asp-validation-for="Input.Pincode" class="text-danger"></span>
                                     </div>
                                 </div>
-
-                                <div class="col-md-6">
-                                    <div data-mdb-input-init class="form-outline mb-4">
-                                        <select asp-for="Input.Role" asp-items="@Model.Input.RoleList" class="form-control form-control-lg bg-light fs-6" aria-required="true">
-                                            <option disabled selected>--Select Role--</option>
-                                        </select>
-                                    </div>
-                                </div>
                             </div>
 
-                            <!-- Submit button -->
-                            <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-block mb-4">
-                                Register
-                            </button>
+                            <!-- Admin Role Dropdown -->
+                            @if (User.IsInRole(SD.Role_Admin))
+                            {
+                                <div class="mb-4">
+                                    <div class="form-outline">
+                                        <select asp-for="Input.Role" asp-items="@Model.Input.RoleList" class="form-control">
+                                            <option disabled selected>--Select Role--</option>
+                                        </select>
+                                        <label asp-for="Input.Role" class="form-label">User Role</label>
+                                    </div>
+                                </div>
+                            }
 
-                            <a asp-page="./Login" asp-route-returnUrl="@Model.ReturnUrl" data-mdb-button-init data-mdb-ripple-init class="btn btn-outline-primary btn-block mb-4">
-                                Already Registered?
-                            </a>
-
-                            <!-- Register buttons -->
-                            @*                             <div class="text-center">
-                                <p>or sign up with:</p>
-                                <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-link btn-floating mx-1">
-                                    <i class="fab fa-facebook-f"></i>
+                            <div class="d-flex justify-content-center mt-4">
+                                <!-- Submit button -->
+                                <button type="submit" class="btn btn-primary btn-lg me-3">
+                                    Register
                                 </button>
 
-                                <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-link btn-floating mx-1">
-                                    <i class="fab fa-google"></i>
-                                </button>
+                                <!-- Already registered button -->
+                                <a asp-page="./Login" asp-route-returnUrl="@Model.ReturnUrl" class="btn btn-outline-primary btn-lg">
+                                    Already Registered?
+                                </a>
+                            </div>
 
-                                <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-link btn-floating mx-1">
-                                    <i class="fab fa-twitter"></i>
-                                </button>
 
-                                <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-link btn-floating mx-1">
-                                    <i class="fab fa-github"></i>
-                                </button>
-                            </div> *@
-
+                            <!-- External Sign-Up (Users only) -->
+                            @if (!User.IsInRole(SD.Role_Admin))
+                            {
+                                <h3 class="text-center mt-5">Or Sign up using:</h3>
+                                <div class="text-center mt-3">
+                                    @if ((Model.ExternalLogins?.Count ?? 0) > 0)
+                                    {
+                                        <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="d-inline">
+                                            @foreach (var provider in Model.ExternalLogins!)
+                                            {
+                                                <button type="submit" class="btn btn-outline-primary me-2" name="provider" value="@provider.Name">
+                                                    <i class="fa-brands fa-google"></i> @provider.DisplayName
+                                                </button>
+                                            }
+                                        </form>
+                                    }
+                                    else
+                                    {
+                                        <p class="text-muted">External login services are not configured.</p>
+                                    }
+                                </div>
+                            }
                         </form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
 </section>
 
 

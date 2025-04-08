@@ -1,0 +1,33 @@
+﻿@model IEnumerable<Product>
+
+@foreach (var product in Model)
+{
+    <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+        <div class="card h-100 shadow-sm">
+            <img class="card-img-top" src="@product.ImageUrl" alt="@product.Name" />
+            <div class="card-body text-center">
+                <h5 class="fw-bolder">@product.Name</h5>
+                <p class="text-muted">@product.ShortDesc</p>
+                <strong>@product.Price.ToString("C", new System.Globalization.CultureInfo("hi-IN"))</strong>
+            </div>
+            @if (product.StockQuantity <= 0)
+            {
+                <div class="card-footer bg-transparent text-center">
+                    <span class="text-danger">Out of Stock</span>
+                </div>
+                <div class="card-footer bg-transparent text-center">
+                    <a class="btn btn-black w-75 mt-2" asp-area="Customer" asp-controller="Home" asp-action="Details" asp-route-productID="@product.Id">More Details</a>
+                </div>
+            }
+            else
+            {
+                <div class="card-footer bg-transparent text-center">
+                    <span class="text-success">In Stock : @product.StockQuantity</span>
+                </div>
+                <div class="card-footer bg-transparent text-center">
+                    <a class="btn btn-black w-75 mt-2" asp-area="Customer" asp-controller="Home" asp-action="Details" asp-route-productID="@product.Id">More Details</a>
+                </div>
+            }
+        </div>
+    </div>
+}

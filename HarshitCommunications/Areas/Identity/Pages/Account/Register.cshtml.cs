@@ -121,12 +121,6 @@ namespace HarshitCommunications.Areas.Identity.Pages.Account
 
         public async Task OnGetAsync(string returnUrl = null)
         {
-            if (!_rolemanager.RoleExistsAsync(SD.Role_Customer).GetAwaiter().GetResult())
-            {
-                _rolemanager.CreateAsync(new IdentityRole(SD.Role_Customer)).GetAwaiter().GetResult();
-                _rolemanager.CreateAsync(new IdentityRole(SD.Role_Admin)).GetAwaiter().GetResult();
-            }
-
             Input = new()
             {
                 RoleList = _rolemanager.Roles.Select(x => x.Name).Select(i => new SelectListItem
@@ -191,7 +185,15 @@ namespace HarshitCommunications.Areas.Identity.Pages.Account
                     }
                     else
                     {
-                        await _signInManager.SignInAsync(user, isPersistent: false);
+                        if(User.IsInRole(SD.Role_Admin))
+                        {
+                            TempData["Success"] = "New User Created Successfully";
+                            return RedirectToAction("Index", "Product", new { area = "Admin" });
+                        }
+                        else
+                        {
+                            await _signInManager.SignInAsync(user, isPersistent: false);
+                        }
                         return LocalRedirect(returnUrl);
                     }
                 }

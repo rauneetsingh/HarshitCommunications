@@ -1,15 +1,6 @@
 ﻿@model IEnumerable<Product>
 
-@* <header class="bg-dark py-5 product-header"> *@
-@*     <div class="container px-4 px-lg-5 my-5"> *@
-@*         <div class="text-center text-start"> *@
-@*             <h1 class="display-4 fw-bolder text-start text-dark">Shop in Style</h1> *@
-@*             <p class="lead fw-normal text-dark-50 mb-0 text-start">Harshit Communications</p> *@
-@*         </div> *@
-@*     </div> *@
-@* </header> *@
-
-<section style="padding-top: 80px;">
+<section class="mb-5" style="padding-top: 80px;">
     <div class="container">
         <div class="row">
             <!-- Filter Sidebar -->
@@ -25,8 +16,17 @@
                 </ul>
             </div>
 
-            <!-- Product Grid -->
+            <!-- Product Grid & Sorting -->
             <div class="col-lg-9 col-md-8 col-sm-12">
+                <div class="d-flex justify-content-between mb-4">
+                    <h4>Products</h4>
+                    <select id="sort-options" class="form-select w-auto">
+                        <option value="default">Sort by</option>
+                        <option value="price-asc">Price: Low to High</option>
+                        <option value="price-desc">Price: High to Low</option>
+                    </select>
+                </div>
+
                 <div id="product-grid" class="row g-4">
                     @foreach (var product in Model)
                     {
@@ -38,45 +38,61 @@
                                     <p class="text-muted">@product.ShortDesc</p>
                                     <strong>@product.Price.ToString("C", new System.Globalization.CultureInfo("hi-IN"))</strong>
                                 </div>
-                                <div class="card-footer bg-transparent text-center">
-                                    <a class="btn btn-black w-75 mt-2" asp-area="Customer" asp-controller="Home" asp-action="Details" asp-route-productID="@product.Id">More Details</a>
-                                </div>
+                                @if (product.StockQuantity <= 0)
+                                {
+                                    <div class="card-footer bg-transparent text-center">
+                                        <span class="text-danger">Out of Stock</span>
+                                    </div>
+                                    <div class="card-footer bg-transparent text-center">
+                                        <a class="btn btn-black w-75 mt-2" asp-area="Customer" asp-controller="Home" asp-action="Details" asp-route-productID="@product.Id">More Details</a>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="card-footer bg-transparent text-center">
+                                        <span class="text-success">In Stock : @product.StockQuantity</span>
+                                    </div>
+                                    <div class="card-footer bg-transparent text-center">
+                                        <a class="btn btn-black w-75 mt-2" asp-area="Customer" asp-controller="Home" asp-action="Details" asp-route-productID="@product.Id">More Details</a>
+                                    </div>
+                                }
                             </div>
                         </div>
                     }
-                </div>
-                <div class="text-center">
-                    <button id="load-more-btn" class="btn btn-primary mt-4">Load More</button>
                 </div>
             </div>
         </div>
     </div>
 </section>
 
+
 @section Scripts {
     <script>
         $(document).ready(function () {
-            $(".category-checkbox").on("change", function () {
-                var selectedCategories = $(".category-checkbox:checked").map(function () {
+            function filterAndSortProducts() {
+                var selectedCategories = $(".category-filter:checked").map(function () {
                     return $(this).val();
                 }).get();
 
-                console.log("Selected Categories:", selectedCategories);
+                var sortOption = $("#sort-options").val();
 
-                $.ajax({
-                    url: "/Customer/Home/FilterProducts",
-                    type: "GET",
-                    data: { categoryIds: selectedCategories },
-                    success: function (response) {
-                        console.log("Server Response:", response);
-                        $("#productsContainer").html(response);
-                    },
-                    error: function (xhr, status, error) {
-                        console.error("AJAX Error:", status, error);
-                    }
-                });
-            });
+        $.ajax({
+            url: "/Customer/Home/FilterProducts",
+            type: "GET",
+            traditional: true, // Ensures proper serialization of arrays
+            data: { categoryIds: selectedCategories, sortOption: sortOption },
+            success: function (response) {
+                $("#product-grid").html(response);
+            },
+            error: function (xhr, status, error) {
+                console.error("AJAX Error:", status, error);
+            }
         });
 
+            }
+
+            $(".category-filter").on("change", filterAndSortProducts);
+            $("#sort-options").on("change", filterAndSortProducts);
+        });
     </script>
 }

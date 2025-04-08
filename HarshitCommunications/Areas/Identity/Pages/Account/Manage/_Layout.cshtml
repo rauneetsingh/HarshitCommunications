@@ -5,26 +5,41 @@
     }
     else
     {
-        Layout = "/Views/Shared/_Layout.cshtml";
+        Layout = "/Views/Shared/_CustomerLayout.cshtml";
     }
 }
 
+<div class="container my-5 py-4 bg-light rounded shadow-sm">
+    <div class="text-center mb-5">
+        <h1 class="fw-bold">Manage Your Account</h1>
+        <p class="text-muted">Easily update your account settings and preferences</p>
+    </div>
 
-
-<div class="container p-5">
-    <h1 class="mb-5">Manage your account</h1>
-
-    <h2>Change your account settings</h2>
-    <hr />
-    <div class="row">
-        <div class="col-md-3">
-            <partial name="_ManageNav" />
+    <div class="row gx-5">
+        <!-- Left Navigation Section -->
+        <div class="col-lg-3 mb-4">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title mb-4 text-primary">Account Navigation</h5>
+                    <partial name="_ManageNav" />
+                </div>
+            </div>
         </div>
-        <div class="col-md-9">
-            @RenderBody()
+
+        <!-- Main Content Section -->
+        <div class="col-lg-9">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body">
+                    <h2 class="fw-bold">Account Settings</h2>
+                    <p class="text-muted">Make changes to your account below.</p>
+                    <hr />
+                    @RenderBody()
+                </div>
+            </div>
         </div>
     </div>
 </div>
+
 
 @section Scripts {
     @RenderSection("Scripts", required: false)

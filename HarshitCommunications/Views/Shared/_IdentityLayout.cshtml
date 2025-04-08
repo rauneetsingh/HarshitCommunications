@@ -3,9 +3,11 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="google-signin-client_id" content="966499865903-ifbhoe3aah3gch5ojlamgam839j83fns.apps.googleusercontent.com">
     <title>@ViewData["Title"] - HarshitCommunications</title>
     <link rel="stylesheet" type="text/css" href="~/LoginSignup/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="~/LoginSignup/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 </head>
 <body>
@@ -136,16 +138,13 @@
                                 <h5 class="widget-title pb-2 text-dark">Quick Links</h5>
                                 <ul class="menu-list list-unstyled text-uppercase">
                                     <li class="menu-item pb-2">
-                                        <a href="#">Home</a>
+                                        <a asp-area="Customer" asp-controller="Home" asp-action="Index">Home</a>
                                     </li>
                                     <li class="menu-item pb-2">
-                                        <a href="#">About</a>
+                                        <a asp-area="Customer" asp-controller="Home" asp-action="AboutUs">About</a>
                                     </li>
                                     <li class="menu-item pb-2">
-                                        <a href="#">Shop</a>
-                                    </li>
-                                    <li class="menu-item pb-2">
-                                        <a href="#">Blogs</a>
+                                        <a asp-area="Customer" asp-controller="Home" asp-action="AllProducts">Shop</a>
                                     </li>
                                     <li class="menu-item pb-2">
                                         <a href="#">Contact</a>

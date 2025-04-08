@@ -34,6 +34,7 @@ namespace HarshitCommunications.DataAccess.Repository
                 objFromDb.CategoryId = obj.CategoryId;
                 objFromDb.Description = obj.Description;
                 objFromDb.ShortDesc = obj.ShortDesc;
+                objFromDb.StockQuantity = obj.StockQuantity;
             }
         }
     }
