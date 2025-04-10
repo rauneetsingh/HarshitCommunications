@@ -16,13 +16,15 @@ namespace HarshitCommunications.Areas.Customer.Controllers
     public class CartController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IPaymentService _paymentService;
 
         [BindProperty]
         private ShoppingCartVM ShoppingCartVM { get; set; }
 
-        public CartController(IUnitOfWork unitOfWork)
+        public CartController(IUnitOfWork unitOfWork, IPaymentService paymentService)
         {
             _unitOfWork = unitOfWork;
+            _paymentService = paymentService;
         }
 
         public IActionResult Index()
@@ -145,7 +147,7 @@ namespace HarshitCommunications.Areas.Customer.Controllers
             if (paymentType == "PayNow")
             {
                 // Create Razorpay Order
-                var order = PaymentService.CreateOrder((decimal)shoppingCartVM.OrderHeader.OrderTotal);
+                var order = _paymentService.CreateOrder((decimal)shoppingCartVM.OrderHeader.OrderTotal);
                 string razorpayOrderId = order["id"].ToString();
 
                 _unitOfWork.OrderHeader.UpdateRazorpayOrderId(
@@ -174,7 +176,7 @@ namespace HarshitCommunications.Areas.Customer.Controllers
             if (string.IsNullOrEmpty(orderHeader.RazorpayOrderId))
             {
                 // Create Razorpay Order
-                var razorpayOrder = PaymentService.CreateOrder((decimal)orderHeader.OrderTotal);
+                var razorpayOrder = _paymentService.CreateOrder((decimal)orderHeader.OrderTotal);
                 orderHeader.RazorpayOrderId = razorpayOrder["id"].ToString(); // Save Razorpay Order ID
                 _unitOfWork.OrderHeader.Update(orderHeader);
                 _unitOfWork.Save();
@@ -212,7 +214,7 @@ namespace HarshitCommunications.Areas.Customer.Controllers
         public IActionResult PaymentConfirmation(string razorpayPaymentId, string razorpayOrderId, string razorpaySignature)
         {
             // Validate Razorpay signature (optional but recommended)
-            bool isValid = RazorpaySignatureValidator.Validate(razorpayOrderId, razorpayPaymentId, razorpaySignature, PaymentService.keySecret);
+            bool isValid = _paymentService.ValidateSignature(razorpayOrderId, razorpayPaymentId, razorpaySignature);
 
             if (!isValid)
             {

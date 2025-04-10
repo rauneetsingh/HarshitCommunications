@@ -2,6 +2,7 @@
 using HarshitCommunications.DataAccess.Repository.IRepository;
 using HarshitCommunications.Models;
 using HarshitCommunications.Utility;
+using Microsoft.Extensions.Configuration;
 using RestSharp;
 using System;
 using System.Collections.Generic;
@@ -14,9 +15,11 @@ namespace HarshitCommunications.DataAccess.Repository
     public class OrderHeaderRepository : Repository<OrderHeader>, IOrderHeaderRepository
     {
         private ApplicationDbContext _db;
-        public OrderHeaderRepository(ApplicationDbContext db) : base(db)
+        private readonly IConfiguration _configuration;
+        public OrderHeaderRepository(ApplicationDbContext db, IConfiguration configuration) : base(db)
         {
             _db = db;
+            _configuration = configuration;
         }
 
         public void Update(OrderHeader obj)
@@ -60,8 +63,8 @@ namespace HarshitCommunications.DataAccess.Repository
             var request = new RestRequest { Method = Method.Post };
 
             // Razorpay API Key & Secret (Replace with actual credentials)
-            string apiKey = "rzp_test_67XFtDb0zvHVVa";
-            string apiSecret = "CZBY8a0YpoBUadU9Ufa0fjDs";
+            string apiKey = _configuration["Razorpay:KeyId"];
+            string apiSecret = _configuration["Razorpay:KeySecret"];
             string encodedAuth = Convert.ToBase64String(Encoding.UTF8.GetBytes($"{apiKey}:{apiSecret}"));
             request.AddHeader("Authorization", $"Basic {encodedAuth}");
 
