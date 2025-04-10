@@ -34,8 +34,8 @@ function loadDataTable() {
                 "data": "id",
                 "render": function (data) {
                     return `<div class="action-buttons">
-                        <a href="/admin/product/upsert?id=${data}" class="btn btn-primary"> <i class="bi bi-pencil-square"></i> Edit </a>
-                        <a onClick = Delete('/admin/product/delete/${data}') class="btn btn-danger"> <i class="bi bi-trash-fill"></i> Delete </a>
+                        <a href="/admin/product/upsert?id=${data}" class="btn btn-primary"> <i class="bi bi-pencil-square"></i></a>
+                        <a onClick = Delete('/admin/product/delete/${data}') class="btn btn-danger"> <i class="bi bi-trash-fill"></i></a>
                     </div>`
                 },
                 "width": "15%"

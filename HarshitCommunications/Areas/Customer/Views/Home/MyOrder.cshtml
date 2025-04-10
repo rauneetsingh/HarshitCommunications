@@ -188,7 +188,7 @@
                     // Send AJAX request to process the refund
                     $.ajax({
                         type: "POST",
-                        url: "/Admin/Order/RefundOrder", // Update with your actual route
+                        url: "/Customer/Home/RefundOrder",
                         data: { orderId: orderId },
                         success: function (response) {
                             if (response.success) {

@@ -13,5 +13,7 @@ namespace HarshitCommunications.DataAccess.Repository.IRepository
         void UpdateStatus(int id, string orderStatus, string? paymentStatus = null);
         void UpdateRazorpayOrderId(int id, string RazorpayOrderId);
         bool RefundPayment(int orderId);
+        decimal GetTotalRevenue();
+        int GetTotalProductsSold();
     }
 }

@@ -100,6 +100,18 @@ namespace HarshitCommunications.Areas.Admin.Controllers
 
             if (isRefunded)
             {
+                var orderDetails = _unitOfWork.OrderDetail.GetAll(od => od.OrderHeaderId == orderId, includeProperties: "Product");
+
+                foreach (var detail in orderDetails)
+                {
+                    var product = detail.Product;
+                    if (product != null)
+                    {
+                        product.StockQuantity += detail.Count;
+                        _unitOfWork.Product.Update(product);
+                    }
+                }
+
                 _unitOfWork.Save();
                 return Json(new { success = true, message = "Order refunded successfully!" });
             }

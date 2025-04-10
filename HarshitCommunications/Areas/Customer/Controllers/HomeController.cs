@@ -119,12 +119,6 @@ namespace HarshitCommunications.Areas.Customer.Controllers
             ShoppingCart cartFromDb = _unitOfWork.ShoppingCart.Get(
                 u => u.ApplicationUserId == userId && u.ProductId == shoppingCart.ProductId);
 
-            if (cartFromDb.Product.StockQuantity <= 0)
-            {
-                TempData["Error"] = "This product is currently out of stock.";
-                return RedirectToAction("Index");
-            }
-
             if (cartFromDb != null)
             {
                 //shopping cart exists
@@ -161,6 +155,34 @@ namespace HarshitCommunications.Areas.Customer.Controllers
             };
 
             return View(OrderVM);
+        }
+
+        [HttpPost]
+        public IActionResult RefundOrder(int orderId)
+        {
+            bool isRefunded = _unitOfWork.OrderHeader.RefundPayment(orderId);
+
+            if (isRefunded)
+            {
+                var orderDetails = _unitOfWork.OrderDetail.GetAll(od => od.OrderHeaderId == orderId, includeProperties: "Product");
+
+                foreach (var detail in orderDetails)
+                {
+                    var product = detail.Product;
+                    if (product != null)
+                    {
+                        product.StockQuantity += detail.Count;
+                        _unitOfWork.Product.Update(product);
+                    }
+                }
+
+                _unitOfWork.Save();
+                return Json(new { success = true, message = "Order refunded successfully!" });
+            }
+            else
+            {
+                return Json(new { success = false, message = "Refund failed. Please try again." });
+            }
         }
 
         public IActionResult Privacy()

@@ -84,5 +84,23 @@ namespace HarshitCommunications.DataAccess.Repository
 
             return false;
         }
+
+        public decimal GetTotalRevenue()
+        {
+            return _db.OrderHeaders
+                .Where(o => o.PaymentStatus != SD.StatusRefunded)
+                .Sum(o => (decimal?)o.OrderTotal) ?? 0;
+        }
+
+        public int GetTotalProductsSold()
+        {
+            var orderIds = _db.OrderHeaders
+                .Where(o => o.PaymentStatus != SD.StatusRefunded)
+                .Select(o => o.Id);
+
+            return _db.OrderDetails
+                .Where(od => orderIds.Contains(od.OrderHeaderId))
+                .Sum(od => (int?)od.Count) ?? 0;
+        }
     }
 }
