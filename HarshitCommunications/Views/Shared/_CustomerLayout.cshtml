@@ -20,84 +20,9 @@
     <!-- DataTables Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.8/css/dataTables.bootstrap5.min.css">
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+
     <script src="~/HomePage/js/modernizr.js"></script>
-
-    <style>
-        .toast-success {
-            background-color: #51a351 !important;
-            color: white !important;
-        }
-
-        .toast-error {
-            background-color: #bd362f !important;
-            color: white !important;
-        }
-
-        .toast-info {
-            background-color: #2f96b4 !important;
-            color: white !important;
-        }
-
-        .toast-warning {
-            background-color: #f89406 !important;
-            color: white !important;
-        }
-
-        /* Navbar General Styling */
-        .site-header {
-            z-index: 1050;
-        }
-
-        .navbar {
-            padding: 1.5rem 1rem;
-        }
-
-        /* Nav-Link Styling */
-        .nav-link {
-            color: rgba(255, 255, 255, 0.85); /* Bright white with slight transparency */
-            font-size: 1.1rem;
-            transition: color 0.3s ease, transform 0.3s ease;
-        }
-
-            .nav-link:hover {
-                color: #ffffff; /* Pure white on hover */
-                transform: scale(1.05); /* Slight zoom effect */
-            }
-
-            /* Active Link */
-            .nav-link.active {
-                color: #f8f9fa; /* Brighter shade for active links */
-                font-weight: bold;
-            }
-
-        /* Navbar Brand Styling */
-        .navbar-brand {
-            font-size: 1.8rem;
-            font-weight: bold;
-        }
-
-        /* Offcanvas */
-        .offcanvas-header {
-            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .offcanvas-body {
-            padding-top: 1rem;
-        }
-
-        /* Buttons */
-        .btn-outline-secondary {
-            color: #ffffff;
-            border-color: #ffffff;
-            transition: all 0.3s ease;
-        }
-
-            .btn-outline-secondary:hover {
-                background-color: #ffffff;
-                color: #212529;
-                border-color: #ffffff;
-            }
-    </style>
 
 </head>
 <body data-bs-spy="scroll" data-bs-target="#navbar" data-bs-root-margin="0px 0px -40%" data-bs-smooth-scroll="true" tabindex="0">
@@ -173,65 +98,56 @@
     </svg>
 
 
-    <header id="header" class="site-header header-scrolled position-fixed text-white bg-dark">
-        <nav id="header-nav" class="navbar navbar-expand-lg px-3 py-3">
+    <header id="header" class="site-header position-fixed w-100 text-white bg-dark" style="z-index: 1050; top: 0; left: 0; right: 0;">
+        <nav class="navbar navbar-expand-lg py-2 px-3">
             <div class="container-fluid">
                 <!-- Brand -->
-                <a class="navbar-brand text-white fw-bold" asp-area="Customer" asp-controller="Home" asp-action="Index" style="font-size: 28px;">
+                <a class="navbar-brand text-white fw-bold" asp-area="Customer" asp-controller="Home" asp-action="Index">
                     Harshit Communication
                 </a>
 
-                <!-- Toggler -->
-                <button class="navbar-toggler d-flex d-lg-none order-3 p-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#bdNavbar" aria-controls="bdNavbar" aria-expanded="false" aria-label="Toggle navigation">
-                    <svg class="navbar-icon">
-                        <use xlink:href="#navbar-icon"></use>
-                    </svg>
+                <!-- Toggler Button -->
+                <button class="navbar-toggler border-light" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarContent" aria-controls="navbarContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
                 </button>
 
-                <!-- Offcanvas -->
-                <div class="offcanvas offcanvas-end" tabindex="-1" id="bdNavbar" aria-labelledby="bdNavbarOffcanvasLabel">
-                    <div class="offcanvas-header px-4 pb-0">
-                        <a class="navbar-brand" href="index.html">
-                            <img src="images/main-logo.png" class="logo" alt="Logo">
-                        </a>
-                        <button type="button" class="btn-close btn-close-black" data-bs-dismiss="offcanvas" aria-label="Close" data-bs-target="#bdNavbar"></button>
-                    </div>
+                <!-- Collapsible content -->
+                <div class="collapse navbar-collapse" id="navbarContent">
+                    <!-- Navbar Links -->
+                    <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link fw-bold text-white px-3" asp-area="Customer" asp-controller="Home" asp-action="Index">HOME</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link fw-bold text-white px-3" asp-area="Customer" asp-controller="Home" asp-action="About">ABOUT</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link fw-bold text-white px-3" asp-area="Customer" asp-controller="Home" asp-action="AllProducts">BROWSE PRODUCTS</a>
+                        </li>
+                        @if (User.IsInRole(SD.Role_Admin))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link fw-bold text-white px-3" asp-area="Admin" asp-controller="Admin" asp-action="Index">CONTENT MANAGEMENT</a>
+                            </li>
+                        }
+                        @if (User.IsInRole(SD.Role_Customer))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link fw-bold text-white px-3" asp-area="Customer" asp-controller="Home" asp-action="MyOrdersList">MY ORDERS</a>
+                            </li>
+                        }
+                    </ul>
 
-                    <div class="offcanvas-body">
-                        <!-- Navbar Links -->
-                        <ul class="navbar-nav text-uppercase justify-content-center align-items-center flex-grow-1 gap-3">
-                            <li class="nav-item">
-                                <a class="nav-link fw-bold" asp-area="Customer" asp-controller="Home" asp-action="Index">Home</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link fw-bold" href="#company-services">About</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link fw-bold" asp-area="Customer" asp-controller="Home" asp-action="AllProducts">Browse Products</a>
-                            </li>
-                            @if (User.IsInRole(SD.Role_Admin))
-                            {
-                                <li class="nav-item">
-                                    <a class="nav-link fw-bold" asp-area="Admin" asp-controller="Admin" asp-action="Index">Content Management</a>
-                                </li>
-                            }
-                            @if (User.IsInRole(SD.Role_Customer))
-                            {
-                                <li class="nav-item">
-                                    <a class="nav-link fw-bold" asp-area="Customer" asp-controller="Home" asp-action="MyOrdersList">My Orders</a>
-                                </li>
-                            }
-                        </ul>
-
-                        <!-- Cart and Login -->
-                        <div class="d-flex justify-content-end align-items-center">
-                            <div class="user-items me-4">
-                                <a asp-area="Customer" asp-controller="Cart" asp-action="Index" class="btn btn-outline-secondary fw-bold">
-                                    @await Component.InvokeAsync("ShoppingCart")
-                                </a>
-                            </div>
-                            <partial name="_LoginPartial" />
+                    <!-- Cart and Login -->
+                    <div class="d-flex align-items-center">
+                        <div class="me-3">
+                            <a asp-area="Customer" asp-controller="Cart" asp-action="Index" class="btn btn-outline-light">
+                                @await Component.InvokeAsync("ShoppingCart")
+                            </a>
                         </div>
+                        <partial name="_LoginPartial" />
                     </div>
                 </div>
             </div>

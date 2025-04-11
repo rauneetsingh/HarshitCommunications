@@ -185,7 +185,7 @@ namespace HarshitCommunications.Areas.Customer.Controllers
             }
         }
 
-        public IActionResult Privacy()
+        public IActionResult About()
         {
             return View();
         }
