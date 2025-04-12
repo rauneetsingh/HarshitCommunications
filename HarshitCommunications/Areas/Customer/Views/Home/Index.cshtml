@@ -10,8 +10,8 @@
                     <div class="row d-flex align-items-center">
                         <div class="col-md-6">
                             <div class="banner-content">
-                                <h1 class="display-3 text-uppercase text-dark pb-5">Discover the Latest Accessories.</h1>
-                                <a href="shop.html" class="btn btn-medium btn-dark text-uppercase btn-rounded-none">Shop Product</a>
+                                <h1 class="display-3 text-uppercase text-dark pb-5 swiper-heading">Discover the Latest Accessories.</h1>
+                                <a asp-action="AllProducts" class="btn btn-medium btn-dark text-uppercase btn-rounded-none">Shop Product</a>
                             </div>
                         </div>
                         <div class="col-md-5">
@@ -27,8 +27,8 @@
                     <div class="row d-flex flex-wrap align-items-center">
                         <div class="col-md-6">
                             <div class="banner-content">
-                                <h1 class="display-3 text-uppercase text-dark pb-5">Stylish Headphones</h1>
-                                <a href="shop.html" class="btn btn-medium btn-dark text-uppercase btn-rounded-none">Shop Product</a>
+                                <h1 class="display-3 text-uppercase text-dark pb-5 swiper-heading">Stylish Headphones</h1>
+                                <a asp-action="AllProducts" class="btn btn-medium btn-dark text-uppercase btn-rounded-none">Shop Product</a>
                             </div>
                         </div>
                         <div class="col-md-5">
@@ -44,8 +44,8 @@
                     <div class="row d-flex flex-wrap align-items-center">
                         <div class="col-md-6">
                             <div class="banner-content">
-                                <h1 class="display-3 text-uppercase text-dark pb-5">Premium Mobile Accessories</h1>
-                                <a href="shop.html" class="btn btn-medium btn-dark text-uppercase btn-rounded-none">Shop Product</a>
+                                <h1 class="display-3 text-uppercase text-dark pb-5 swiper-heading">Premium Mobile Accessories</h1>
+                                <a asp-action="AllProducts" class="btn btn-medium btn-dark text-uppercase btn-rounded-none">Shop Product</a>
                             </div>
                         </div>
                         <div class="col-md-5">
@@ -58,17 +58,6 @@
             </div>
         </div>
     </div>
-
-    @*     <div class="swiper-icon swiper-arrow swiper-arrow-prev">
-        <svg class="chevron-left">
-            <use xlink:href="#chevron-left" />
-        </svg>
-    </div>
-    <div class="swiper-icon swiper-arrow swiper-arrow-next">
-        <svg class="chevron-right">
-            <use xlink:href="#chevron-right" />
-        </svg>
-    </div> *@
 </section>
 <section id="company-services" class="padding-large">
     <div class="container">
@@ -134,7 +123,7 @@
             <div class="display-header d-flex justify-content-between pb-3">
                 <h2 class="display-7 text-dark text-uppercase">Latest EarBuds</h2>
                 <div class="btn-right">
-                    <a href="shop.html" class="btn btn-medium btn-normal text-uppercase">Go to Shop</a>
+                    <a asp-action="AllProducts" class="btn btn-medium btn-normal text-uppercase">Go to Shop</a>
                 </div>
             </div>
             <div class="swiper product-swiper">
@@ -142,16 +131,21 @@
                     <div class="swiper-slide">
                         <div class="product-card position-relative">
                             <div class="image-holder">
-                                <img src="~/Images/Static_Images/Buds/eb27.png" alt="product-item" class="img-fluid">
+                                <img src="~/Images/Static_Images/Buds/eb27.png" alt="Coolpods 27" class="img-fluid">
                             </div>
                             <div class="cart-concern position-absolute">
-                                <div class="cart-button d-flex">
-                                    <a href="#" class="btn btn-medium btn-black">Add to Cart<svg class="cart-outline"><use xlink:href="#cart-outline"></use></svg></a>
+                                <div class="cart-button d-flex desktop-view">
+                                    <a href="/Customer/Home/Details?productID=1" class="btn btn-medium btn-black">
+                                        View Details
+                                    </a>
                                 </div>
+                            </div>
+                            <div class="mobile-cart-button mobile-view">
+                                <a href="/Customer/Home/Details?productID=1" class="btn btn-medium btn-black">Add to Cart</a>
                             </div>
                             <div class="card-detail d-flex justify-content-between align-items-baseline pt-3">
                                 <h3 class="card-title text-uppercase">
-                                    <a href="#">Coolpods 27</a>
+                                    <a href="/Customer/Home/Details?productID=1">Coolpods 27</a>
                                 </h3>
                                 <span class="item-price text-primary">Rs 1099</span>
                             </div>
@@ -160,72 +154,92 @@
                     <div class="swiper-slide">
                         <div class="product-card position-relative">
                             <div class="image-holder">
-                                <img src="~/Images/Static_Images/Buds/eb30.png" alt="product-item" class="img-fluid">
+                                <img src="~/Images/Static_Images/Buds/eb30.png" alt="Coolpods 30" class="img-fluid">
                             </div>
                             <div class="cart-concern position-absolute">
-                                <div class="cart-button d-flex">
-                                    <a href="#" class="btn btn-medium btn-black">Add to Cart<svg class="cart-outline"><use xlink:href="#cart-outline"></use></svg></a>
+                                <div class="cart-button d-flex desktop-view">
+                                    <a href="/Customer/Home/Details?productID=7" class="btn btn-medium btn-black">
+                                        View Details
+                                    </a>
                                 </div>
+                            </div>
+                            <div class="mobile-cart-button mobile-view">
+                                <a href="/Customer/Home/Details?productID=7" class="btn btn-medium btn-black">Add to Cart</a>
                             </div>
                             <div class="card-detail d-flex justify-content-between align-items-baseline pt-3">
                                 <h3 class="card-title text-uppercase">
-                                    <a href="#">Coolpods 30</a>
+                                    <a href="/Customer/Home/Details?productID=7">Coolpods 30</a>
                                 </h3>
-                                <span class="item-price text-primary">Rs.1199</span>
+                                <span class="item-price text-primary">Rs 1199</span>
                             </div>
                         </div>
                     </div>
                     <div class="swiper-slide">
                         <div class="product-card position-relative">
                             <div class="image-holder">
-                                <img src="~/Images/Static_Images/Buds/eb57.png" alt="product-item" class="img-fluid">
+                                <img src="~/Images/Static_Images/Buds/eb39.png" alt="Coolpods 39" class="img-fluid">
                             </div>
                             <div class="cart-concern position-absolute">
-                                <div class="cart-button d-flex">
-                                    <a href="#" class="btn btn-medium btn-black">Add to Cart<svg class="cart-outline"><use xlink:href="#cart-outline"></use></svg></a>
+                                <div class="cart-button d-flex desktop-view">
+                                    <a href="/Customer/Home/Details?productID=6" class="btn btn-medium btn-black">
+                                        View Details
+                                    </a>
                                 </div>
+                            </div>
+                            <div class="mobile-cart-button mobile-view">
+                                <a href="/Customer/Home/Details?productID=6" class="btn btn-medium btn-black">Add to Cart</a>
                             </div>
                             <div class="card-detail d-flex justify-content-between align-items-baseline pt-3">
                                 <h3 class="card-title text-uppercase">
-                                    <a href="#">Coolpods 57</a>
+                                    <a href="/Customer/Home/Details?productID=6">Coolpods 39</a>
                                 </h3>
-                                <span class="item-price text-primary">Rs.1699</span>
+                                <span class="item-price text-primary">Rs 1699</span>
                             </div>
                         </div>
                     </div>
                     <div class="swiper-slide">
                         <div class="product-card position-relative">
                             <div class="image-holder">
-                                <img src="~/Images/Static_Images/Buds/eb39.png" alt="product-item" class="img-fluid">
+                                <img src="~/Images/Static_Images/Buds/eb42.png" alt="Coolpods 42" class="img-fluid">
                             </div>
                             <div class="cart-concern position-absolute">
-                                <div class="cart-button d-flex">
-                                    <a href="#" class="btn btn-medium btn-black">Add to Cart<svg class="cart-outline"><use xlink:href="#cart-outline"></use></svg></a>
+                                <div class="cart-button d-flex desktop-view">
+                                    <a href="/Customer/Home/Details?productID=1050" class="btn btn-medium btn-black">
+                                        View Details
+                                    </a>
                                 </div>
+                            </div>
+                            <div class="mobile-cart-button mobile-view">
+                                <a href="/Customer/Home/Details?productID=1050" class="btn btn-medium btn-black">Add to Cart</a>
                             </div>
                             <div class="card-detail d-flex justify-content-between align-items-baseline pt-3">
                                 <h3 class="card-title text-uppercase">
-                                    <a href="#">Coolpods 39</a>
+                                    <a href="/Customer/Home/Details?productID=1050">Coolpods 42</a>
                                 </h3>
-                                <span class="item-price text-primary">Rs.1699</span>
+                                <span class="item-price text-primary">Rs 1699</span>
                             </div>
                         </div>
                     </div>
                     <div class="swiper-slide">
                         <div class="product-card position-relative">
                             <div class="image-holder">
-                                <img src="~/Images/Static_Images/Buds/eb42.png" alt="product-item" class="img-fluid">
+                                <img src="~/Images/Static_Images/Buds/eb57.png" alt="Coolpods 57" class="img-fluid">
                             </div>
                             <div class="cart-concern position-absolute">
-                                <div class="cart-button d-flex">
-                                    <a href="#" class="btn btn-medium btn-black">Add to Cart<svg class="cart-outline"><use xlink:href="#cart-outline"></use></svg></a>
+                                <div class="cart-button d-flex desktop-view">
+                                    <a href="/Customer/Home/Details?productID=34" class="btn btn-medium btn-black">
+                                        View Details
+                                    </a>
                                 </div>
+                            </div>
+                            <div class="mobile-cart-button mobile-view">
+                                <a href="/Customer/Home/Details?productID=34" class="btn btn-medium btn-black">Add to Cart</a>
                             </div>
                             <div class="card-detail d-flex justify-content-between align-items-baseline pt-3">
                                 <h3 class="card-title text-uppercase">
-                                    <a href="#">Coolpods 42</a>
+                                    <a href="/Customer/Home/Details?productID=34">Coolpods 57</a>
                                 </h3>
-                                <span class="item-price text-primary">Rs.1699</span>
+                                <span class="item-price text-primary">Rs 1699</span>
                             </div>
                         </div>
                     </div>
@@ -241,7 +255,7 @@
             <div class="display-header d-flex justify-content-between pb-3">
                 <h2 class="display-7 text-dark text-uppercase">Smart Watches</h2>
                 <div class="btn-right">
-                    <a href="shop.html" class="btn btn-medium btn-normal text-uppercase">Go to Shop</a>
+                    <a asp-action="AllProducts" class="btn btn-medium btn-normal text-uppercase">Go to Shop</a>
                 </div>
             </div>
             <div class="swiper product-watch-swiper">
@@ -249,90 +263,115 @@
                     <div class="swiper-slide">
                         <div class="product-card position-relative">
                             <div class="image-holder">
-                                <img src="~/Images/Static_Images/Chargers/chamber22.png" alt="product-item" class="img-fluid">
+                                <img src="~/Images/Static_Images/Chargers/chamber22.png" alt="Chamber 22" class="img-fluid">
                             </div>
                             <div class="cart-concern position-absolute">
-                                <div class="cart-button d-flex">
-                                    <a href="#" class="btn btn-medium btn-black">Add to Cart<svg class="cart-outline"><use xlink:href="#cart-outline"></use></svg></a>
+                                <div class="cart-button d-flex desktop-view">
+                                    <a href="/Customer/Home/Details?productID=23" class="btn btn-medium btn-black">
+                                        View Details
+                                    </a>
                                 </div>
+                            </div>
+                            <div class="mobile-cart-button mobile-view">
+                                <a href="/Customer/Home/Details?productID=23" class="btn btn-medium btn-black">Add to Cart</a>
                             </div>
                             <div class="card-detail d-flex justify-content-between align-items-baseline pt-3">
                                 <h3 class="card-title text-uppercase">
-                                    <a href="#">Chamber 22</a>
+                                    <a href="/Customer/Home/Details?productID=23">Chamber 22</a>
                                 </h3>
-                                <span class="item-price text-primary">Rs.449</span>
+                                <span class="item-price text-primary">Rs 449</span>
                             </div>
                         </div>
                     </div>
                     <div class="swiper-slide">
                         <div class="product-card position-relative">
                             <div class="image-holder">
-                                <img src="~/Images/Static_Images/Chargers/chamber27.png" alt="product-item" class="img-fluid">
+                                <img src="~/Images/Static_Images/Chargers/chamber27.png" alt="Chamber 27" class="img-fluid">
                             </div>
                             <div class="cart-concern position-absolute">
-                                <div class="cart-button d-flex">
-                                    <a href="#" class="btn btn-medium btn-black">Add to Cart<svg class="cart-outline"><use xlink:href="#cart-outline"></use></svg></a>
+                                <div class="cart-button d-flex desktop-view">
+                                    <a href="/Customer/Home/Details?productID=1051" class="btn btn-medium btn-black">
+                                        View Details
+                                    </a>
                                 </div>
+                            </div>
+                            <div class="mobile-cart-button mobile-view">
+                                <a href="/Customer/Home/Details?productID=1051" class="btn btn-medium btn-black">Add to Cart</a>
                             </div>
                             <div class="card-detail d-flex justify-content-between align-items-baseline pt-3">
                                 <h3 class="card-title text-uppercase">
-                                    <a href="#">Chamber 27</a>
+                                    <a href="/Customer/Home/Details?productID=1051">Chamber 27</a>
                                 </h3>
-                                <span class="item-price text-primary">Rs.449</span>
+                                <span class="item-price text-primary">Rs 499</span>
                             </div>
                         </div>
                     </div>
                     <div class="swiper-slide">
                         <div class="product-card position-relative">
                             <div class="image-holder">
-                                <img src="~/Images/Static_Images/Chargers/chamber29.png" alt="product-item" class="img-fluid">
+                                <img src="~/Images/Static_Images/Chargers/chamber29.png" alt="Chamber 29" class="img-fluid">
                             </div>
                             <div class="cart-concern position-absolute">
-                                <div class="cart-button d-flex">
-                                    <a href="#" class="btn btn-medium btn-black">Add to Cart<svg class="cart-outline"><use xlink:href="#cart-outline"></use></svg></a>
+                                <div class="cart-button d-flex desktop-view">
+                                    <a href="/Customer/Home/Details?productID=1052" class="btn btn-medium btn-black">
+                                        View Details
+                                    </a>
                                 </div>
+                            </div>
+                            <div class="mobile-cart-button mobile-view">
+                                <a href="/Customer/Home/Details?productID=1052" class="btn btn-medium btn-black">Add to Cart</a>
                             </div>
                             <div class="card-detail d-flex justify-content-between align-items-baseline pt-3">
                                 <h3 class="card-title text-uppercase">
-                                    <a href="#">Chamber 29</a>
+                                    <a href="/Customer/Home/Details?productID=1052">Chamber 29</a>
                                 </h3>
-                                <span class="item-price text-primary">Rs.349</span>
+                                <span class="item-price text-primary">Rs 349</span>
                             </div>
                         </div>
                     </div>
                     <div class="swiper-slide">
                         <div class="product-card position-relative">
                             <div class="image-holder">
-                                <img src="~/Images/Static_Images/Chargers/chamber32.png" alt="product-item" class="img-fluid">
+                                <img src="~/Images/Static_Images/Chargers/chamber32.png" alt="Chamber 32" class="img-fluid">
                             </div>
                             <div class="cart-concern position-absolute">
-                                <div class="cart-button d-flex">
-                                    <a href="#" class="btn btn-medium btn-black">Add to Cart<svg class="cart-outline"><use xlink:href="#cart-outline"></use></svg></a>
+                                <div class="cart-button d-flex desktop-view">
+                                    <a href="/Customer/Home/Details?productID=1053" class="btn btn-medium btn-black">
+                                        View Details
+                                    </a>
                                 </div>
+                            </div>
+                            <div class="mobile-cart-button mobile-view">
+                                <a href="/Customer/Home/Details?productID=1053" class="btn btn-medium btn-black">Add to Cart</a>
                             </div>
                             <div class="card-detail d-flex justify-content-between align-items-baseline pt-3">
                                 <h3 class="card-title text-uppercase">
-                                    <a href="#">Chamber 32</a>
+                                    <a href="/Customer/Home/Details?productID=1053">Chamber 32</a>
                                 </h3>
-                                <span class="item-price text-primary">Rs.499</span>
+                                <span class="item-price text-primary">Rs 499</span>
                             </div>
                         </div>
                     </div>
                     <div class="swiper-slide">
                         <div class="product-card position-relative">
                             <div class="image-holder">
-                                <img src="~/Images/Static_Images/Chargers/chamber35.png" alt="product-item" class="img-fluid">
+                                <img src="~/Images/Static_Images/Chargers/chamber35.png" alt="Chamber 35" class="img-fluid">
                             </div>
                             <div class="cart-concern position-absolute">
-                                <div class="cart-button d-flex">
-                                    <a href="#" class="btn btn-medium btn-black">Add to Cart<svg class="cart-outline"><use xlink:href="#cart-outline"></use></svg></a>
+                                <div class="cart-button d-flex desktop-view">
+                                    <a href="/Customer/Home/Details?productID=24" class="btn btn-medium btn-black">
+                                        View Details
+                                    </a>
                                 </div>
                             </div>
-                            <div class="card-detail d-flex justify-content-between pt-3">
+                            <div class="mobile-cart-button mobile-view">
+                                <a href="/Customer/Home/Details?productID=24" class="btn btn-medium btn-black">Add to Cart</a>
+                            </div>
+                            <div class="card-detail d-flex justify-content-between align-items-baseline pt-3">
                                 <h3 class="card-title text-uppercase">
-                                    <a href="#">Chamber 35</a>
+                                    <a href="/Customer/Home/Details?productID=24">Chamber 35</a>
                                 </h3>
-                                <span class="item-price text-primary">Rs.349</span>
+                                <span class="item-price text-primary">Rs 349</span>
                             </div>
                         </div>
                     </div>
@@ -346,7 +385,7 @@
     <div class="row d-flex flex-wrap align-items-center">
         <div class="col-md-6 col-sm-12">
             <div class="text-content offset-4 padding-medium">
-@*                 <h3>10% off</h3>
+                @*                 <h3>10% off</h3>
                 <h2 class="display-2 pb-5 text-uppercase text-dark">New year sale</h2>
                 <a href="shop.html" class="btn btn-medium btn-dark text-uppercase btn-rounded-none">Shop Sale</a> *@
             </div>

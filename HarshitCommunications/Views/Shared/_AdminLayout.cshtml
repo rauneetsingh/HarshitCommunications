@@ -24,7 +24,53 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" />
     <!-- DataTables Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.8/css/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.dataTables.min.css" />
 
+
+    <style>
+        /* Default Success Notification */
+        #toast-container .toast-success {
+            background-color: #51a351 !important; /* Standard green */
+            color: #fff !important;
+        }
+
+        /* Default Error Notification */
+        #toast-container .toast-error {
+            background-color: #bd362f !important; /* Standard red */
+            color: #fff !important;
+        }
+
+        /* Default Info Notification */
+        #toast-container .toast-info {
+            background-color: #2f96b4 !important; /* Standard blue */
+            color: #fff !important;
+        }
+
+        /* Default Warning Notification */
+        #toast-container .toast-warning {
+            background-color: #f89406 !important; /* Standard orange */
+            color: #fff !important;
+        }
+
+        /* Ensure default styles override template styles */
+        #toast-container .toast {
+            border-radius: 4px !important;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1) !important;
+        }
+
+        /* Fix text visibility */
+        #toast-container .toast-message {
+            font-size: 1rem;
+            font-weight: 400;
+            color: inherit !important;
+        }
+
+        /* Ensure buttons (close icon) stay visible */
+        #toast-container .toast-close-button {
+            color: #fff !important;
+            opacity: 1;
+        }
+    </style>
 
 </head>
 <body id="page-top">
@@ -229,6 +275,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.datatables.net/1.13.8/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.8/js/dataTables.bootstrap5.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
 
     @await RenderSectionAsync("Scripts", required: false)
 </body>

@@ -3,7 +3,7 @@
 <form id="orderForm" method="post" asp-action="Summary">
     <input type="hidden" id="paymentType" name="paymentType" value="" /> <!-- Hidden payment type -->
     <br />
-    <div class="container" style="margin-top: 100px; margin-bottom: 100px;">
+    <div id="order-summary" class="container" style="margin-top: 100px; margin-bottom: 100px;">
         <div class="card shadow border-0">
 
             <div class="card-header bg-primary bg-gradient text-light ml-0 py-4">
@@ -38,7 +38,7 @@
                             </div>
                             <div class="row my-1">
                                 <div class="col-3">
-                                    <label>Phone</label>
+                                    <label>Phone Number</label>
                                 </div>
                                 <div class="col-9">
                                     <input asp-for="OrderHeader.PhoneNumber" class="form-control" />
@@ -47,7 +47,7 @@
                             </div>
                             <div class="row my-1">
                                 <div class="col-3">
-                                    <label>Street Address</label>
+                                    <label>Address</label>
                                 </div>
                                 <div class="col-9">
                                     <input asp-for="OrderHeader.Address" class="form-control" />
@@ -74,7 +74,7 @@
                             </div>
                             <div class="row my-1">
                                 <div class="col-3">
-                                    <label>Postal Code</label>
+                                    <label>Pincode</label>
                                 </div>
                                 <div class="col-9">
                                     <input asp-for="OrderHeader.Pincode" class="form-control" />

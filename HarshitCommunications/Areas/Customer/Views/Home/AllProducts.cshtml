@@ -3,8 +3,7 @@
 <section class="mb-5" style="padding-top: 80px;">
     <div class="container">
         <div class="row">
-            <!-- Filter Sidebar -->
-            <div class="col-lg-3 col-md-4 col-sm-12 sticky-filter">
+            <div class="col-lg-3 col-md-4 d-none d-md-block sticky-filter">
                 <h4 class="mb-4">Filter by Categories</h4>
                 <ul class="list-group">
                     @foreach (var category in ViewBag.Categories as List<Category>)
@@ -14,19 +13,49 @@
                         </li>
                     }
                 </ul>
+
+                <h4 class="mt-4">Sort Products</h4>
+                <select id="sort-options" class="form-select">
+                    <option value="default">Sort by</option>
+                    <option value="price-asc">Price: Low to High</option>
+                    <option value="price-desc">Price: High to Low</option>
+                </select>
+            </div>
+            <!-- Mobile Filter Button -->
+            <div class="col-12 d-block d-lg-none text-center mb-3">
+                <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#filterOffcanvas">
+                    Filter & Sort
+                </button>
             </div>
 
-            <!-- Product Grid & Sorting -->
-            <div class="col-lg-9 col-md-8 col-sm-12">
-                <div class="d-flex justify-content-between mb-4">
-                    <h4>Products</h4>
-                    <select id="sort-options" class="form-select w-auto">
+            <!-- Offcanvas Sidebar for Filters -->
+            <div class="offcanvas offcanvas-start" tabindex="-1" id="filterOffcanvas">
+                <div class="offcanvas-header">
+                    <h5 class="offcanvas-title">Filter & Sort</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+                </div>
+                <div class="offcanvas-body">
+                    <h4>Filter by Categories</h4>
+                    <ul class="list-group">
+                        @foreach (var category in ViewBag.Categories as List<Category>)
+                        {
+                            <li class="list-group-item">
+                                <input type="checkbox" class="category-filter" value="@category.Id" /> @category.Name
+                            </li>
+                        }
+                    </ul>
+
+                    <h4 class="mt-4">Sort Products</h4>
+                    <select id="sort-options" class="form-select">
                         <option value="default">Sort by</option>
                         <option value="price-asc">Price: Low to High</option>
                         <option value="price-desc">Price: High to Low</option>
                     </select>
                 </div>
+            </div>
 
+            <!-- Product Grid -->
+            <div id="product-section" class="col-lg-9 col-md-8 col-sm-12">
                 <div id="product-grid" class="row g-4">
                     @foreach (var product in Model)
                     {
@@ -64,6 +93,7 @@
         </div>
     </div>
 </section>
+
 
 
 @section Scripts {

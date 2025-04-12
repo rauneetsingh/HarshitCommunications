@@ -35,6 +35,7 @@ function loadDataTable(status) {
                 },
                 "width": "5%"
             },
-        ]
+        ],
+        "responsive": true
     });
 }

@@ -3,7 +3,7 @@
 <!-- Product section-->
 <form asp-action="Details" method="post">
     <input hidden asp-for="Cart.ProductId" name="ProductId" />
-    <section class="py-5">
+    <section id="product-details-section" class="py-5">
         <div class="container px-4 px-lg-5 my-5">
             <div class="row gx-4 gx-lg-5 align-items-center">
                 <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" src="@Model.Cart.Product.ImageUrl" alt="..." /></div>
@@ -42,24 +42,24 @@
     </section>
 </form>
 <!-- Related items section-->
-<section class="py-5 bg-light">
+<section id="related-products-section" class="py-5 bg-light">
     <div class="container px-4 px-lg-5 mt-5">
         <h2 class="fw-bolder mb-4">Related products</h2>
-        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+
+        <!-- Scrollable Container -->
+        <div id="related-products-scroll" class="d-flex overflow-auto">
             @foreach (var relatedProduct in Model.RelatedProducts)
             {
-                <div class="col mb-5">
+                <div class="flex-shrink-0 related-product-card">
                     <div class="card h-100">
-                        <img class="card-img-top" src="@relatedProduct.ImageUrl" alt="..." />
-                        <div class="card-body p-4">
-                            <div class="text-center">
-                                <h5 class="fw-bolder">@relatedProduct.Name</h5>
-                                <p>@relatedProduct.ShortDesc</p>
-                                <strong>@relatedProduct.Price.ToString("C", new System.Globalization.CultureInfo("hi-IN"))</strong>
-                            </div>
+                        <img class="card-img-top" src="@relatedProduct.ImageUrl" alt="@relatedProduct.Name" />
+                        <div class="card-body">
+                            <h5 class="fw-bolder">@relatedProduct.Name</h5>
+                            <p>@relatedProduct.ShortDesc</p>
+                            <strong>@relatedProduct.Price.ToString("C", new System.Globalization.CultureInfo("hi-IN"))</strong>
                         </div>
-                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                            <div class="text-center"><a class="btn btn-black mt-auto" href="@Url.Action("Details", "Home", new { productID = relatedProduct.Id })">View Details</a></div>
+                        <div class="card-footer text-center">
+                            <a class="btn btn-black" href="@Url.Action("Details", "Home", new { productID = relatedProduct.Id })">View Details</a>
                         </div>
                     </div>
                 </div>

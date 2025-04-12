@@ -1,0 +1,126 @@
+﻿@media (max-width: 576px) {
+    .btn-lg {
+        font-size: 1rem; /* Slightly smaller text */
+        padding: 10px 15px; /* Adjust button spacing */
+    }
+}
+
+@media (max-width: 576px) {
+    .d-flex.justify-content-center {
+        flex-direction: column; /* Stacks buttons vertically */
+        align-items: center; /* Centers them neatly */
+        gap: 10px; /* Adds space between buttons */
+    }
+}
+
+#forgot-password-container {
+    max-width: 900px; /* Expands width for desktop */
+    margin: auto; /* Ensures form stays centered */
+    padding: 60px 0; /* Adds breathing room */
+}
+
+.card {
+    background: #fff; /* Clean background */
+    border-radius: 12px; /* Softer corners */
+    padding: 40px; /* Ensures good spacing */
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+/* Mobile Adjustments */
+@media (max-width: 768px) {
+    #forgot-password-container {
+        max-width: 100%; /* Uses full width for mobile */
+        padding: 30px; /* Reduces padding */
+    }
+
+    .card {
+        padding: 20px; /* Adjusts spacing */
+    }
+}
+
+#forgot-password-confirmation {
+    max-width: 700px;
+    margin: auto;
+}
+
+.card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 40px;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 768px) {
+    .card {
+        padding: 25px;
+    }
+}
+
+#reset-password-container {
+    max-width: 800px; /* Expands width for desktop */
+    margin: auto; /* Centers form */
+    padding: 60px 0; /* Adds spacing around form */
+}
+
+.card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 40px;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Mobile Adjustments */
+@media (max-width: 768px) {
+    #reset-password-container {
+        max-width: 100%;
+        padding: 30px;
+    }
+
+    .card {
+        padding: 25px;
+    }
+}
+
+#reset-password-confirmation {
+    max-width: 700px; /* Expands width for desktop */
+    margin: auto; /* Centers the card */
+    padding: 60px 0;
+}
+
+.card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 40px;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1); /* Adds subtle depth */
+}
+
+/* Mobile Adjustments */
+@media (max-width: 768px) {
+    #reset-password-confirmation {
+        max-width: 100%;
+        padding: 30px;
+    }
+
+    .card {
+        padding: 25px;
+    }
+}
+
+#register-confirmation {
+    max-width: 600px !important;
+    margin: auto !important;
+}
+
+    /* Card Styling */
+    #register-confirmation .card {
+        border-radius: 10px !important;
+        padding: 20px !important;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1) !important;
+    }
+
+/* Button Adjustments */
+#confirm-link {
+    margin-top: 15px !important;
+    font-size: 1.1rem !important;
+    padding: 10px 15px !important;
+}

@@ -1,0 +1,498 @@
+﻿@media (max-width: 576px) {
+    .swiper-heading {
+        font-size: 1.2rem !important; /* Override display-3 for small devices */
+        line-height: 2.2rem;
+    }
+
+    #billboard{
+        padding-top: 40px;
+    }
+}
+
+/* Media query for mobile view */
+@media (max-width: 576px) {
+    /* Stack navbar links vertically and center them */
+    .navbar-nav {
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+        /* Add vertical spacing for each nav item */
+        .navbar-nav .nav-item {
+            margin: 0.5rem 0;
+        }
+
+        /* Center the nav link text and adjust padding */
+        .navbar-nav .nav-link {
+            padding: 10px 15px;
+            text-align: center;
+            width: 100%;
+        }
+
+    /* Adjust the Cart and Login section to also stack vertically */
+    .d-flex.align-items-center {
+        flex-direction: column;
+        align-items: center;
+    }
+
+        /* Apply spacing between elements in the Cart/Login section */
+        .d-flex.align-items-center > * {
+            margin-bottom: 10px;
+        }
+}
+
+@media (max-width: 576px) {
+    /* Ensure the row stacks its columns vertically */
+    .row {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    /* Adjust columns to take full width */
+    .col-lg-3, .col-md-6 {
+        width: 100%;
+        text-align: center; /* Center align everything */
+    }
+
+    /* Reduce spacing between icon boxes */
+    .icon-box {
+        flex-direction: column; /* Stack icon and text vertically */
+        align-items: center; /* Center everything */
+        padding: 15px 10px;
+    }
+
+    /* Center icons */
+    .icon-box-icon {
+        padding: 0;
+        margin-bottom: 10px;
+    }
+
+    /* Adjust heading size for better mobile readability */
+    .icon-box-content h3 {
+        font-size: 1.2rem; /* Smaller font for compact design */
+    }
+
+    /* Adjust paragraph text */
+    .icon-box-content p {
+        font-size: 0.9rem; /* Smaller font for mobile */
+        line-height: 1.4; /* Improve readability */
+    }
+}
+
+@media (max-width: 576px) {
+    /* Stack display header elements vertically */
+    .display-header {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+        /* Ensure the title and button have proper spacing */
+        .display-header h2 {
+            font-size: 1.4rem; /* Reduce font size */
+            margin-bottom: 10px;
+        }
+
+    .btn-right {
+        width: 100%;
+        text-align: center;
+    }
+
+    /* Ensure Swiper container takes full width */
+    .swiper {
+        width: 100%;
+    }
+
+    /* Adjust product card layout */
+    .product-card {
+        text-align: center;
+        padding: 15px;
+    }
+
+    /* Ensure images fit properly */
+    .image-holder img {
+        max-width: 100%;
+        height: auto;
+    }
+
+    /* Stack cart button properly */
+    .cart-concern {
+        position: relative;
+        margin-top: 10px;
+    }
+
+    /* Ensure cart button aligns properly */
+    .cart-button {
+        justify-content: center;
+    }
+
+    /* Reduce spacing for product details */
+    .card-detail {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding-top: 10px;
+    }
+
+    /* Adjust product title and price */
+    .card-title a {
+        font-size: 1rem; /* Reduce size */
+    }
+
+    .item-price {
+        font-size: 1rem; /* Keep consistent */
+    }
+
+    /* Adjust Swiper pagination */
+    .swiper-pagination {
+        position: relative;
+        margin-top: 15px;
+    }
+}
+
+/* Hide the overlay button for mobile view */
+@media (max-width: 768px) {
+    .cart-concern {
+        display: none !important; /* Ensure it's always hidden */
+        pointer-events: none; /* Prevent interactions */
+    }
+
+    /* Show the mobile-friendly cart button */
+    .mobile-cart-button {
+        display: block;
+        text-align: center;
+        margin-top: 10px;
+    }
+
+        /* Style the mobile button */
+        .mobile-cart-button a {
+            display: inline-block;
+            width: 100%;
+            padding: 12px;
+            background-color: #000;
+            color: #fff;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+}
+
+/* Show overlay only for desktop */
+@media (min-width: 769px) {
+    .mobile-cart-button {
+        display: none;
+    }
+}
+
+@media (max-width: 768px) {
+    #yearly-sale {
+        display: none !important; /* Completely hides section */
+    }
+}
+
+@media (max-width: 768px) {
+    #footer .container {
+        text-align: left !important; /* Forces left alignment */
+    }
+
+    .footer-top-area .row {
+        flex-direction: column; /* Stacks footer sections */
+        align-items: flex-start; /* Ensures left alignment */
+    }
+
+    .footer-menu, .contact-item, .copyright {
+        text-align: left; /* Explicitly aligns text */
+    }
+
+    .menu-list {
+        padding-left: 0; /* Removes unwanted padding */
+    }
+
+    .Shipping {
+        justify-content: flex-start; /* Aligns payment options */
+    }
+
+    .card-wrap {
+        justify-content: flex-start; /* Ensures payment images align left */
+    }
+}
+
+@media (max-width: 768px) {
+    #shopping-cart-index {
+        padding: 20px 10px; /* Reduces excessive spacing */
+    }
+
+    .card {
+        padding: 15px !important; /* Reduce padding for compact mobile view */
+    }
+
+    .card-header {
+        text-align: center; /* Center-align header */
+        font-size: 1.2rem; /* Adjust heading size */
+        padding: 12px; /* Reduce padding */
+    }
+
+    .col-md-10.offset-md-1 {
+        padding: 0 5px; /* Reduces side padding for better fit */
+    }
+
+    .btn-group {
+        width: 100%; /* Makes button controls full width */
+        display: flex;
+        justify-content: center; /* Centers plus/minus buttons */
+        gap: 5px; /* Adds spacing between buttons */
+    }
+
+    .btn-sm {
+        font-size: 0.9rem; /* Optimizes button size */
+        padding: 8px 12px;
+    }
+
+    /* Adjust image display */
+    .col-lg-1.text-center {
+        display: block; /* Ensure product images show up on mobile */
+        width: 60px; /* Resize images */
+        margin-bottom: 10px;
+    }
+
+    /* Center "Total Price" section */
+    .list-group {
+        text-align: center;
+        font-size: 1rem;
+    }
+
+    /* Ensure Summary button appears only when needed */
+    .col-md-2.offset-md-5 {
+        display: flex;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 768px) {
+    #shopping-cart-index .col-12.col-lg-5 {
+        display: flex !important;
+        flex-wrap: wrap;
+        justify-content: center !important;
+        align-items: center !important;
+        gap: 10px;
+    }
+
+    #shopping-cart-index .btn-group {
+        display: flex;
+        flex-direction: row !important;
+        justify-content: center !important;
+        align-items: center !important;
+        width: auto !important;
+    }
+
+    #shopping-cart-index .btn {
+        min-width: 40px;
+        padding: 8px 12px;
+    }
+
+    #shopping-cart-index .col-lg-2.offset-lg-1 {
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+    }
+}
+
+@media (max-width: 768px) {
+    #order-summary .btn-warning {
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        width: 100% !important;
+        text-align: center !important;
+        margin-top: 15px !important; /* Adds spacing */
+    }
+}
+
+@media (max-width: 768px) {
+    #order-summary .card {
+        padding: 20px !important;
+    }
+
+    #order-summary .container {
+        padding: 10px !important;
+    }
+
+    #order-summary .list-group-item {
+        padding: 10px !important;
+        margin-bottom: 5px !important; /* Adds space between products */
+    }
+
+    #order-summary .form-control {
+        padding: 12px !important;
+        margin-bottom: 10px !important;
+    }
+}
+
+@media (max-width: 768px) {
+    #tblData {
+        display: block !important;
+        width: 100% !important;
+        overflow-x: auto !important;
+    }
+
+    .dataTables_wrapper {
+        width: 100% !important;
+    }
+
+    .table {
+        font-size: 0.9rem !important; /* Reduce font size for mobile */
+    }
+
+    .action-buttons {
+        display: flex !important;
+        justify-content: start !important;
+        align-items: start !important;
+    }
+
+        .action-buttons .btn {
+            width: auto !important; /* Prevents shrinking */
+            padding: 8px 12px !important; /* Adds consistency */
+        }
+}
+
+@media (max-width: 768px) {
+    .dataTables_length {
+        margin: 10px !important; /* Adds spacing below "Show Entries" */
+    }
+
+    .dataTables_filter {
+        margin: 10px !important; /* Adds spacing above search bar */
+        text-align: center !important; /* Ensures alignment stays clean */
+    }
+}
+
+@media (max-width: 768px) {
+    .offcanvas {
+        max-width: 280px !important; /* Ensures sidebar isn’t too large */
+    }
+
+    .card {
+        padding: 10px !important;
+    }
+
+    .btn {
+        width: 100% !important;
+    }
+}
+
+/* Target the product section without affecting other layouts */
+#product-section {
+    padding: 20px !important;
+}
+
+    /* Make product cards more compact */
+    #product-section .card {
+        padding: 12px !important;
+        border-radius: 10px !important;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1) !important;
+    }
+
+    /* Adjust product image for better fit */
+    #product-section .card-img-top {
+        width: 80% !important;
+        height: auto !important;
+        margin: auto !important;
+    }
+
+/* Reduce heading and description size for mobile */
+@media (max-width: 768px) {
+    #product-section .card-body h5 {
+        font-size: 1rem !important; /* Smaller font size */
+    }
+
+    #product-section .card-body p {
+        font-size: 0.9rem !important; /* Reduce description text */
+    }
+
+    #product-section .card-footer {
+        padding: 8px !important;
+    }
+
+    /* Adjust product grid spacing */
+    #product-grid .col-sm-12 {
+        padding: 5px !important;
+    }
+
+    /* Ensure buttons are properly aligned */
+    #product-section .btn {
+        width: 85% !important;
+        margin: auto !important;
+    }
+}
+
+/* Ensure product details text is left-aligned */
+#product-details-section {
+    text-align: left !important;
+}
+
+    #product-details-section .lead {
+        text-align: left !important;
+    }
+
+    /* Adjust image alignment */
+    #product-details-section .card-img-top {
+        display: block !important;
+        margin-left: 0 !important;
+    }
+
+    /* Fix spacing inside product details */
+    #product-details-section h1 {
+        margin-bottom: 15px !important;
+    }
+
+    #product-details-section p {
+        margin-bottom: 10px !important;
+    }
+
+    /* Ensure input field & button spacing */
+    #product-details-section .d-flex {
+        justify-content: start !important; /* Align items left */
+        gap: 15px !important; /* Adds spacing */
+    }
+
+@media (max-width: 768px) {
+    .d-flex {
+        flex-wrap: nowrap !important; /* Prevents items from stacking */
+        justify-content: start !important; /* Aligns to left */
+        gap: 10px !important; /* Adds space between input & button */
+    }
+
+    #inputQuantity {
+        width: 60px !important; /* Ensures correct width */
+        text-align: center !important;
+        margin-right: 10px !important;
+    }
+
+    .btn-warning {
+        width: auto !important; /* Prevents stretching */
+        min-width: 140px !important; /* Ensures proper button size */
+        padding: 10px 15px !important;
+    }
+}
+
+#related-products-scroll {
+    display: flex !important;
+    gap: 15px !important; /* Space between product cards */
+    overflow-x: auto !important; /* Horizontal scroll */
+    scroll-snap-type: x mandatory !important;
+    padding-bottom: 10px !important;
+}
+
+/* Individual product card adjustments */
+.related-product-card {
+    flex: 0 0 auto !important;
+    width: 250px !important; /* Ensures all cards have same width */
+    scroll-snap-align: start !important;
+}
+
+    /* Improve button placement */
+    .related-product-card .btn-black {
+        width: 85% !important;
+        margin: auto !important;
+    }

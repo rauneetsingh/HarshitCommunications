@@ -12,6 +12,7 @@
 
     <link rel="stylesheet" type="text/css" href="~/HomePage/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="~/HomePage/css/style.css">
+    <link rel="stylesheet" type="text/css" href="~/HomePage/css/responsive.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -19,10 +20,57 @@
 
     <!-- DataTables Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.8/css/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.dataTables.min.css" />
+
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
 
     <script src="~/HomePage/js/modernizr.js"></script>
+
+    <style>
+        /* Default Success Notification */
+        #toast-container .toast-success {
+            background-color: #51a351 !important; /* Standard green */
+            color: #fff !important;
+        }
+
+        /* Default Error Notification */
+        #toast-container .toast-error {
+            background-color: #bd362f !important; /* Standard red */
+            color: #fff !important;
+        }
+
+        /* Default Info Notification */
+        #toast-container .toast-info {
+            background-color: #2f96b4 !important; /* Standard blue */
+            color: #fff !important;
+        }
+
+        /* Default Warning Notification */
+        #toast-container .toast-warning {
+            background-color: #f89406 !important; /* Standard orange */
+            color: #fff !important;
+        }
+
+        /* Ensure default styles override template styles */
+        #toast-container .toast {
+            border-radius: 4px !important;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1) !important;
+        }
+
+        /* Fix text visibility */
+        #toast-container .toast-message {
+            font-size: 1rem;
+            font-weight: 400;
+            color: inherit !important;
+        }
+
+        /* Ensure buttons (close icon) stay visible */
+        #toast-container .toast-close-button {
+            color: #fff !important;
+            opacity: 1;
+        }
+    </style>
 
 </head>
 <body data-bs-spy="scroll" data-bs-target="#navbar" data-bs-root-margin="0px 0px -40%" data-bs-smooth-scroll="true" tabindex="0">
@@ -110,7 +158,7 @@
                 <button class="navbar-toggler border-light" type="button" data-bs-toggle="collapse"
                         data-bs-target="#navbarContent" aria-controls="navbarContent"
                         aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
+                    <i class="bi bi-list text-white"></i>
                 </button>
 
                 <!-- Collapsible content -->
@@ -155,7 +203,7 @@
     </header>
 
 
-    <div style="padding-top: 50px;">
+    <div>
         <partial name="_Notification" />
         @RenderBody()
     </div>
@@ -251,35 +299,9 @@
 
     <script src="https://cdn.datatables.net/1.13.8/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.8/js/dataTables.bootstrap5.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-    <script>
-        window.onload = function () {
-            google.accounts.id.initialize({
-                client_id: "966499865903-ifbhoe3aah3gch5ojlamgam839j83fns.apps.googleusercontent.com",
-                callback: handleCredentialResponse
-            });
-            google.accounts.id.prompt(); // One Tap popup
-        };
-
-        function handleCredentialResponse(response) {
-            // Send token to server via POST
-            fetch('/Account/GoogleOneTapLogin', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ credential: response.credential })
-            })
-            .then(res => res.json())
-            .then(data => {
-                if (data.success) {
-                    window.location.href = data.redirectUrl;
-                } else {
-                    alert("Login failed");
-                }
-            });
-        }
-    </script>
 
     @await RenderSectionAsync("Scripts", required: false)
 </body>
