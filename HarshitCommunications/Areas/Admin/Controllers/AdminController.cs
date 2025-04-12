@@ -25,28 +25,5 @@ namespace HarshitCommunications.Areas.Admin.Controllers
 
             return View();
         }
-
-        public IActionResult GetMonthlyRevenue()
-        {
-            var data = _unitOfWork.OrderHeader.GetAll()
-                .Where(o => o.PaymentStatus != SD.StatusRefunded)
-                .GroupBy(o => o.OrderDate.ToString("MMM yyyy"))
-                .Select(g => new { Month = g.Key, Total = g.Sum(o => o.OrderTotal) })
-                .OrderBy(x => x.Month)
-                .ToList();
-
-            return Json(data);
-        }
-
-        public IActionResult GetCategorySales()
-        {
-            var data = _unitOfWork.OrderDetail
-                   .GetAll(includeProperties: "Product,Product.Category")
-                   .GroupBy(od => od.Product.Category.Name)
-                   .Select(g => new { Category = g.Key, Total = g.Sum(od => od.Count) })
-                   .ToList();
-
-            return Json(data);
-        }
     }
 }
