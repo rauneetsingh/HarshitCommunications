@@ -167,31 +167,28 @@
                                     Already Registered?
                                 </a>
                             </div>
-
-
-                            <!-- External Sign-Up (Users only) -->
-                            @if (!User.IsInRole(SD.Role_Admin))
-                            {
-                                <h3 class="text-center mt-5">Or Sign up using:</h3>
-                                <div class="text-center mt-3">
-                                    @if ((Model.ExternalLogins?.Count ?? 0) > 0)
-                                    {
-                                        <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="d-inline">
-                                            @foreach (var provider in Model.ExternalLogins!)
-                                            {
-                                                <button type="submit" class="btn btn-outline-primary me-2" name="provider" value="@provider.Name">
-                                                    <i class="fa-brands fa-google"></i> @provider.DisplayName
-                                                </button>
-                                            }
-                                        </form>
-                                    }
-                                    else
-                                    {
-                                        <p class="text-muted">External login services are not configured.</p>
-                                    }
-                                </div>
-                            }
                         </form>
+                        @if (!User.IsInRole(SD.Role_Admin))
+                        {
+                            <h3 class="text-center mt-5">Or Sign up using:</h3>
+                            <div class="text-center mt-3">
+                                @if ((Model.ExternalLogins?.Count ?? 0) > 0)
+                                {
+                                    <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="d-inline">
+                                        @foreach (var provider in Model.ExternalLogins!)
+                                        {
+                                            <button type="submit" class="btn btn-outline-primary me-2" name="provider" value="@provider.Name">
+                                                <i class="fa-brands fa-google"></i> @provider.DisplayName
+                                            </button>
+                                        }
+                                    </form>
+                                }
+                                else
+                                {
+                                    <p class="text-muted">External login services are not configured.</p>
+                                }
+                            </div>
+                        }
                     </div>
                 </div>
             </div>

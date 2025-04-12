@@ -4,57 +4,72 @@
     ViewData["Title"] = "Register";
 }
 
-<h1>@ViewData["Title"]</h1>
-<h2 id="external-login-title">Associate your @Model.ProviderDisplayName account.</h2>
-<hr />
+<div id="register-section" class="container mt-5">
+    <div class="card shadow-lg border-0">
+        <div class="card-header bg-primary text-light text-center py-3">
+            <h2>@ViewData["Title"]</h2>
+        </div>
+        <div class="card-body">
+            <h4 class="text-center text-info">Associate your @Model.ProviderDisplayName account.</h4>
+            <hr />
 
-<p id="external-login-description" class="text-info">
-    You've successfully authenticated with <strong>@Model.ProviderDisplayName</strong>.
-    Please enter an email address for this site below and click the Register button to finish
-    logging in.
-</p>
+            <p class="text-center">
+                You've successfully authenticated with <strong>@Model.ProviderDisplayName</strong>.
+                Please enter your details below and click **Register** to finish logging in.
+            </p>
 
-<div class="row">
-    <div class="col-md-4">
-        <form asp-page-handler="Confirmation" asp-route-returnUrl="@Model.ReturnUrl" method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
-            <div class="form-floating mb-3">
-                <input asp-for="Input.Email" class="form-control" autocomplete="email" placeholder="Please enter your email." />
-                <label asp-for="Input.Email" class="form-label"></label>
-                <span asp-validation-for="Input.Email" class="text-danger"></span>
+            <div class="row justify-content-center">
+                <div class="col-md-12">
+                    <form asp-page-handler="Confirmation" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+                        <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="Input.Email" class="fw-bold"></label>
+                            <input asp-for="Input.Email" class="form-control" autocomplete="email" placeholder="Enter your email" />
+                            <span asp-validation-for="Input.Email" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="Input.Name" class="fw-bold"></label>
+                            <input asp-for="Input.Name" class="form-control" placeholder="Enter your name" />
+                            <span asp-validation-for="Input.Name" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="Input.PhoneNumber" class="fw-bold"></label>
+                            <input asp-for="Input.PhoneNumber" class="form-control" placeholder="Enter your phone number" />
+                            <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="Input.Address" class="fw-bold"></label>
+                            <input asp-for="Input.Address" class="form-control" placeholder="Enter your address" />
+                            <span asp-validation-for="Input.Address" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="Input.City" class="fw-bold"></label>
+                            <input asp-for="Input.City" class="form-control" placeholder="Enter your city" />
+                            <span asp-validation-for="Input.City" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="Input.State" class="fw-bold"></label>
+                            <input asp-for="Input.State" class="form-control" placeholder="Enter your state" />
+                            <span asp-validation-for="Input.State" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="Input.Pincode" class="fw-bold"></label>
+                            <input asp-for="Input.Pincode" class="form-control" placeholder="Enter your pincode" />
+                            <span asp-validation-for="Input.Pincode" class="text-danger"></span>
+                        </div>
+
+                        <button type="submit" class="w-100 btn btn-lg btn-success">Register</button>
+                    </form>
+                </div>
             </div>
-            <div class="form-floating mb-3">
-                <input asp-for="Input.Name" class="form-control" autocomplete="email" placeholder="Please enter your Name." />
-                <label asp-for="Input.Name" class="form-label"></label>
-                <span asp-validation-for="Input.Name" class="text-danger"></span>
-            </div>
-            <div class="form-floating mb-3">
-                <input asp-for="Input.PhoneNumber" class="form-control" autocomplete="email" placeholder="Please enter your Phone Number." />
-                <label asp-for="Input.PhoneNumber" class="form-label"></label>
-                <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
-            </div>
-            <div class="form-floating mb-3">
-                <input asp-for="Input.Address" class="form-control" autocomplete="email" placeholder="Please enter your Address." />
-                <label asp-for="Input.Address" class="form-label"></label>
-                <span asp-validation-for="Input.Address" class="text-danger"></span>
-            </div>
-            <div class="form-floating mb-3">
-                <input asp-for="Input.City" class="form-control" autocomplete="email" placeholder="Please enter your City." />
-                <label asp-for="Input.City" class="form-label"></label>
-                <span asp-validation-for="Input.City" class="text-danger"></span>
-            </div>
-            <div class="form-floating mb-3">
-                <input asp-for="Input.State" class="form-control" autocomplete="email" placeholder="Please enter your State." />
-                <label asp-for="Input.State" class="form-label"></label>
-                <span asp-validation-for="Input.State" class="text-danger"></span>
-            </div>
-            <div class="form-floating mb-3">
-                <input asp-for="Input.Pincode" class="form-control" autocomplete="email" placeholder="Please enter your Pincode." />
-                <label asp-for="Input.Pincode" class="form-label"></label>
-                <span asp-validation-for="Input.Pincode" class="text-danger"></span>
-            </div>
-            <button type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
-        </form>
+        </div>
     </div>
 </div>
 

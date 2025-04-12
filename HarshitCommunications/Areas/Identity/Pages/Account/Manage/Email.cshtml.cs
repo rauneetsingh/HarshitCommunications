@@ -124,9 +124,25 @@ namespace HarshitCommunications.Areas.Identity.Pages.Account.Manage
                     values: new { area = "Identity", userId = userId, email = Input.NewEmail, code = code },
                     protocol: Request.Scheme);
                 await _emailSender.SendEmailAsync(
-                    Input.NewEmail,
-                    "Confirm your email",
-                    $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                        Input.NewEmail,
+                        "Request For Changing Your Email - Harshit Communication",
+                        $@"<html>
+                            <body style='font-family: Arial, sans-serif;'>
+                                <div style='max-width: 600px; margin: auto; padding: 20px; border: 1px solid #ddd; border-radius: 8px;'>
+                                    <h2 style='color: #4a69bd;'>Confirm Your Email</h2>
+                                    <p>Hello,</p>
+                                    <p>Thank you for signing up. Please confirm your email by clicking the button below:</p>
+                                    <div style='text-align: center; margin: 20px 0;'>
+                                        <a href='{HtmlEncoder.Default.Encode(callbackUrl)}' 
+                                        style='display: inline-block; padding: 10px 20px; color: white; background-color: #4a69bd; 
+                              text-decoration: none; border-radius: 5px; font-size: 16px;'>Confirm Email</a>
+                                    </div>
+                                    <p>If you didn't request this, please ignore this email.</p>
+                                    <p>Best Regards,<br><strong>Harshit Communications Team</strong></p>
+                                </div>
+                            </body>
+                        </html>"
+                    );
 
                 StatusMessage = "Confirmation link to change email sent. Please check your email.";
                 return RedirectToPage();

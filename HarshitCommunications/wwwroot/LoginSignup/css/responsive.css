@@ -124,3 +124,37 @@
     font-size: 1.1rem !important;
     padding: 10px 15px !important;
 }
+
+#register-section {
+    max-width: 650px !important;
+    margin: auto !important;
+}
+
+    /* Card Styling */
+    #register-section .card {
+        border-radius: 12px !important;
+        padding: 25px !important;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1) !important;
+    }
+
+    /* Button Styling */
+    #register-section .btn-success {
+        padding: 12px 15px !important;
+        font-size: 1.1rem !important;
+        font-weight: bold !important;
+    }
+
+/* Mobile Adjustments */
+@media (max-width: 768px) {
+    #register-section {
+        padding: 15px !important;
+    }
+
+    .form-group {
+        margin-bottom: 15px !important;
+    }
+
+    .btn-success {
+        font-size: 1rem !important;
+    }
+}
